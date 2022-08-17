@@ -1,0 +1,114 @@
+.main {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.9) 25%,
+        rgba(0, 0, 0, 0.5) 70%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+.main:nth-child(2n) {
+    background-image: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.9) 25%,
+        rgba(0, 0, 0, 0.5) 70%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+.main:nth-child(2n) .container:first-child {
+    order: 2;
+}
+
+.container h1 {
+    font-size: xxx-large;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.container p {
+    font-size: medium;
+    font-weight: 500;
+    color: #ddd;
+}
+
+.container p span {
+    font-weight: 600;
+    color: #eee;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.inputGroup .formControl {
+    width: 100%;
+    max-width: 300px;
+}
+
+.inputGroup input {
+    width: 100%;
+    background-color: var(--g-background);
+    color: #fff;
+    font-size: medium;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--g-border);
+}
+.inputGroup input::placeholder {
+    color: #eee;
+}
+
+.inputGroup button {
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: var(--button-primary);
+    font-size: medium;
+    font-weight: 600;
+    color: #fff;
+}
+
+.linkGroup {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.linkGroup .iconTextLink {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: var(--g-background);
+    border-radius: 8px;
+}
+
+.linkGroup .iconTextLink svg {
+    height: 25px;
+    width: 25px;
+    fill: #fff;
+}
+
+.linkGroup .iconTextLink p {
+    color: #eee;
+    margin: 0;
+}
+.linkGroup .iconTextLink p span {
+    color: #fff;
+    display: block;
+}

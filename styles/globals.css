@@ -45,6 +45,7 @@ li {
     --heading-1: #2c1542;
     --heading-2: #432062;
     --heading-3: #8c5db6;
+    --text-primary: #000;
     --status-text: #592a83;
     --button-primary: #7d49ad;
     --button-secondary: #d4c2e4;
@@ -54,4 +55,5 @@ li {
     --input-bg: #f1ebf6;
     --overlay: #000000aa;
     --g-background: rgba(255, 255, 255, 0.2);
+    --g-border: rgba(255, 255, 255, 0.5);
 }
