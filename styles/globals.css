@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background-color: var(--background);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+input,
+button,
+select {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+li {
+    list-style: none;
+}
+
+*:disabled {
+    cursor: not-allowed;
+}
+
+:root {
+    --background: #fff;
+    --heading-1: #2c1542;
+    --heading-2: #432062;
+    --heading-3: #8c5db6;
+    --status-text: #592a83;
+    --button-primary: #7d49ad;
+    --button-secondary: #d4c2e4;
+    --cred-card-bg: #f4eff8;
+    --group-card-bg: #e9e0f1;
+    --divider: #a986c8;
+    --input-bg: #f1ebf6;
+    --overlay: #000000aa;
+    --g-background: rgba(255, 255, 255, 0.2);
+}
