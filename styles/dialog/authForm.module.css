@@ -1,0 +1,141 @@
+.main {
+    padding: 40px;
+    text-align: center;
+    width: 100%;
+    text-align: center;
+}
+
+.main h2 {
+    color: var(--heading-1);
+    font-weight: 700;
+    font-size: xx-large;
+    margin-bottom: 30px;
+}
+
+.main .or {
+    color: var(--status-text);
+    margin-top: 30px;
+}
+
+.main form {
+    margin: 30px 0;
+}
+
+.formControl {
+    margin-bottom: 20px;
+}
+
+.formControl .inputField {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--input-bg);
+}
+
+.inputField input {
+    font-size: medium;
+    width: 100%;
+    color: var(--heading-2);
+}
+.inputField input:disabled {
+    opacity: 0.5;
+}
+
+.inputField button {
+    color: var(--status-text);
+}
+
+.formButton {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: var(--button-primary);
+    transition: box-shadow 300ms ease-in-out;
+}
+.formButton:hover {
+    box-shadow: 3px 3px 25px var(--button-primary);
+}
+.formButton:disabled {
+    opacity: 0.5;
+}
+
+.main a,
+.main p {
+    display: block;
+    color: var(--status-text);
+}
+.main a:not(:last-child),
+.main p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+    .main {
+        padding: 30px;
+    }
+
+    .main h2 {
+        margin-bottom: 20px;
+    }
+
+    .main .or {
+        margin-top: 20px;
+    }
+
+    .main form {
+        margin: 20px 0;
+    }
+
+    .formControl {
+        margin-bottom: 15px;
+    }
+
+    .formControl .inputField {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .formButton {
+        padding: 10px 15px;
+    }
+
+    .main a:not(:last-child),
+    .main p:not(:last-child) {
+        margin-bottom: 8px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .main {
+        padding: 20px;
+    }
+
+    .main h2 {
+        margin-bottom: 15px;
+    }
+
+    .main form {
+        margin: 15px 0;
+    }
+
+    .formControl {
+        margin-bottom: 12px;
+    }
+
+    .formControl .inputField {
+        padding: 10px;
+    }
+
+    .inputField input {
+        font-size: small;
+    }
+
+    .formButton {
+        padding: 8px 12px;
+    }
+}

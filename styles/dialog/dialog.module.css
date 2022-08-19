@@ -1,0 +1,50 @@
+.main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    background-color: var(--overlay);
+    z-index: 11;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.main.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.main .container {
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: var(--background);
+    border-radius: 10px;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+}
+.main.show .container {
+    transform: scale(1);
+}
+
+@media only screen and (max-width: 400px) {
+    .main {
+        align-items: flex-end;
+    }
+
+    .main .container {
+        width: 100%;
+        max-width: none;
+        border-radius: 10px 10px 0 0;
+        transform: translateY(100%);
+    }
+    .main.show .container {
+        transform: translateY(0);
+    }
+}
