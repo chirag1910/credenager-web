@@ -3,20 +3,23 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
-import GoogleLogin from "../GoogleLogin";
 import Api from "../../utils/api";
 import { connect } from "react-redux";
-import { login as loginAction } from "../../redux/action/auth";
+import {
+    login as loginAction,
+    setKey as setKeyAction,
+} from "../../redux/action/auth";
 
-const Login = ({ user, loginAction }) => {
+const Signup = ({ user, loginAction, setKeyAction }) => {
     const router = useRouter();
     const { next, prefill } = router.query;
 
     const [email, setEmail] = useState(prefill || "");
     const [password, setPassword] = useState("");
+    const [key, setKey] = useState("");
 
     const [showPass, setShowPass] = useState(false);
-    const [googleAllowed, setGoogleAllowed] = useState(false);
+    const [showKey, setShowKey] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -31,39 +34,21 @@ const Login = ({ user, loginAction }) => {
         loading ? nprogress.start() : nprogress.done();
     }, [loading]);
 
-    const handleGoogleFailure = () => {
-        toast.error("Error connecting google");
-    };
-
-    const handleAuthGoogle = async (credential) => {
-        if (!credential) {
-            toast.error("Some error occurred");
-            return false;
-        }
-
-        setLoading(true);
-
-        const response = await new Api().googleLogin(credential);
-
-        if (response.status === "ok") {
-            toast.success(response.message);
-            loginAction(response.userID, response.email);
-        } else {
-            toast.error("Some error occurred");
-            setLoading(false);
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (isValidForm()) {
             setLoading(true);
 
-            const response = await new Api().login(email.trim(), password);
+            const response = await new Api().signup(
+                email.trim(),
+                password,
+                key
+            );
 
             if (response.status === "ok") {
                 toast.success(response.message);
+                setKeyAction(key);
                 loginAction(response.userID, response.email);
             } else {
                 toast.error(response.error);
@@ -83,6 +68,16 @@ const Login = ({ user, loginAction }) => {
             return false;
         }
 
+        if (password.length < 8) {
+            toast.error("Minimum password length must be 8 characters");
+            return false;
+        }
+
+        if (!key) {
+            toast.error("Key is required");
+            return false;
+        }
+
         return true;
     };
 
@@ -93,15 +88,7 @@ const Login = ({ user, loginAction }) => {
     return (
         <>
             <div className={styles.main}>
-                <h2>Login</h2>
-
-                <GoogleLogin
-                    onSuccess={handleAuthGoogle}
-                    onError={handleGoogleFailure}
-                    onLoad={() => setGoogleAllowed(true)}
-                />
-
-                {googleAllowed && <p className={styles.or}>OR</p>}
+                <h2>Signup</h2>
 
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div className={styles.formControl}>
@@ -138,30 +125,44 @@ const Login = ({ user, loginAction }) => {
                         </div>
                     </div>
 
+                    <div className={styles.formControl}>
+                        <label htmlFor="key" value="key" />
+                        <div className={styles.inputField}>
+                            <input
+                                type={showKey ? "text" : "password"}
+                                id="key"
+                                name="key"
+                                placeholder="Key"
+                                value={key}
+                                onChange={(e) => setKey(e.target.value)}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowKey(!showKey)}
+                            >
+                                {showKey ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                    </div>
+
                     <button
                         className={styles.formButton}
                         type="submit"
                         disabled={loading}
                     >
-                        Login
+                        Signup
                     </button>
                 </form>
 
                 <button
                     className={styles.linkButton}
                     type="button"
-                    onClick={() => handleAction("reset")}
+                    onClick={() => handleAction("login")}
                 >
-                    Forgot password?
+                    Login instead?
                 </button>
 
-                <button
-                    className={styles.linkButton}
-                    type="button"
-                    onClick={() => handleAction("signup")}
-                >
-                    Don&#39;t have an account?
-                </button>
+                <p>Note: Key can never be changed or recovered!</p>
             </div>
         </>
     );
@@ -176,7 +177,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loginAction: (userID, email) => dispatch(loginAction(userID, email)),
+        setKeyAction: (key) => dispatch(setKeyAction(key)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

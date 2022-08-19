@@ -1,10 +1,20 @@
 import styles from "../../styles/landingPage/landing.module.css";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import BGCarousel from "./BGCarousel";
 
 const Landing = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState("");
+
+    const handleSignupButton = () => {
+        router.replace({
+            href: "/",
+            query: { action: "signup", prefill: email, next: "/home" },
+        });
+    };
 
     return (
         <>
@@ -29,7 +39,9 @@ const Landing = () => {
                                 />
                             </div>
                         </div>
-                        <button type="button">Signup</button>
+                        <button type="button" onClick={handleSignupButton}>
+                            Signup
+                        </button>
                     </div>
                     <p>
                         Already have an account?{" "}

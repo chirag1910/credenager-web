@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import styles from "../../styles/dialog/dialog.module.css";
 import Login from "./Login";
+import Signup from "./Signup";
 
 const DialogManager = () => {
     const router = useRouter();
@@ -14,8 +15,8 @@ const DialogManager = () => {
 
     useEffect(() => {
         if (router.isReady && action) {
-            setShow(true);
-            setDismissable(action !== "key");
+            setShow(!!action);
+            setDismissable(router.pathname === "/");
         }
     }, [router, action]);
 
@@ -48,7 +49,7 @@ const DialogManager = () => {
     const handleDismiss = () => {
         setShow(false);
         router.query = {};
-        router.replace(router);
+        router.replace({ href: "", query: {} });
     };
 
     return action && router.isReady ? (
@@ -59,7 +60,13 @@ const DialogManager = () => {
                 )}
             >
                 <div className={styles.container} ref={dialog}>
-                    {action === "login" ? <Login /> : <></>}
+                    {action === "login" ? (
+                        <Login />
+                    ) : action === "signup" ? (
+                        <Signup />
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </>
