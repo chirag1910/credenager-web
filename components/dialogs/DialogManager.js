@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import styles from "../../styles/dialog/dialog.module.css";
 import Login from "./Login";
 import Signup from "./Signup";
+import ResetPass from "./ResetPass";
 
 const DialogManager = () => {
     const router = useRouter();
@@ -64,6 +65,8 @@ const DialogManager = () => {
                         <Login />
                     ) : action === "signup" ? (
                         <Signup />
+                    ) : action === "reset" ? (
+                        <ResetPass />
                     ) : (
                         <></>
                     )}

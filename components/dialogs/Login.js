@@ -22,8 +22,7 @@ const Login = ({ user, loginAction }) => {
 
     useEffect(() => {
         if (user) {
-            router.query = {};
-            router.replace(next ? next : router);
+            router.replace(next ? next : "");
         }
     }, [user]);
 

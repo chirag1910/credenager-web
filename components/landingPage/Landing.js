@@ -12,7 +12,7 @@ const Landing = () => {
     const handleSignupButton = () => {
         router.replace({
             href: "/",
-            query: { action: "signup", prefill: email, next: "/home" },
+            query: { action: "signup", prefill: email.trim(), next: "/home" },
         });
     };
 
