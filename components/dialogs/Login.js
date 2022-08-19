@@ -63,10 +63,8 @@ const Login = () => {
     };
 
     const handleAction = (action) => {
-        router.replace({
-            pathname: router.pathname,
-            query: { ...router.query, action },
-        });
+        router.query.action = action;
+        router.replace(router);
     };
 
     return (

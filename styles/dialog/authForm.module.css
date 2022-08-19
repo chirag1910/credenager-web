@@ -64,12 +64,16 @@
     opacity: 0.5;
 }
 
-.main a,
+.linkButton,
 .main p {
     display: block;
     color: var(--status-text);
+    font-size: medium;
+    text-align: center;
+    width: 100%;
 }
-.main a:not(:last-child),
+
+.linkButton:not(:last-child),
 .main p:not(:last-child) {
     margin-bottom: 10px;
 }
@@ -104,7 +108,7 @@
         padding: 10px 15px;
     }
 
-    .main a:not(:last-child),
+    .linkButton:not(:last-child),
     .main p:not(:last-child) {
         margin-bottom: 8px;
     }
@@ -137,5 +141,10 @@
 
     .formButton {
         padding: 8px 12px;
+    }
+
+    .linkButton,
+    .main p {
+        font-size: small;
     }
 }

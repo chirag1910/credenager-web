@@ -34,7 +34,7 @@ const Landing = () => {
                     <p>
                         Already have an account?{" "}
                         <span>
-                            <Link href="/">
+                            <Link href="/?action=login">
                                 <a>Log in.</a>
                             </Link>
                         </span>
