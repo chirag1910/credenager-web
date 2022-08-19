@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import GoogleLogin from "../GoogleLogin";
+import Api from "../../utils/api";
+import { connect } from "react-redux";
+import { login as loginAction } from "../../redux/action/auth";
 
-const Login = () => {
+const Login = ({ user, loginAction }) => {
     const router = useRouter();
+    const { next, prefill } = router.query;
 
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(prefill || "");
     const [password, setPassword] = useState("");
 
     const [showPass, setShowPass] = useState(false);
@@ -32,9 +36,15 @@ const Login = () => {
 
         setLoading(true);
 
-        //api
+        const response = await new Api().googleLogin(credential);
 
-        setLoading(false);
+        if (response.status === "ok") {
+            toast.success(response.message);
+            loginAction(response.userID, response.email);
+        } else {
+            toast.error("Some error occurred");
+            setLoading(false);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -43,8 +53,15 @@ const Login = () => {
         if (isValidForm()) {
             setLoading(true);
 
-            // api
-            setLoading(false);
+            const response = await new Api().login(email.trim(), password);
+
+            if (response.status === "ok") {
+                toast.success(response.message);
+                loginAction(response.userID, response.email);
+            } else {
+                toast.error(response.error);
+                setLoading(false);
+            }
         }
     };
 
@@ -144,4 +161,16 @@ const Login = () => {
     );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginAction: (userID, email) => dispatch(loginAction(userID, email)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

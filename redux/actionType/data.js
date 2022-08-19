@@ -1,0 +1,10 @@
+export const SET_DATA_LOADED = "SET_DATA_LOADED";
+export const SET_GROUPS = "SET_GROUPS";
+export const ADD_GROUP = "ADD_GROUP";
+export const DELETE_GROUP = "DELETE_GROUP";
+export const UPDATE_GROUP = "UPDATE_GROUP";
+export const SET_CREDS = "SET_CREDS";
+export const ADD_CRED = "ADD_CRED";
+export const DELETE_CRED = "DELETE_CRED";
+export const UPDATE_CRED = "UPDATE_CRED";
+export const UPDATE_CRED_GROUP = "UPDATE_CRED_GROUP";

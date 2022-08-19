@@ -3,12 +3,23 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DialogManager from "./dialogs/DialogManager";
+import Api from "../utils/api";
+import { connect } from "react-redux";
+import {
+    login as loginAction,
+    setUserLoaded as setUserLoadedAction,
+} from "../redux/action/auth";
 
 const Init = () => {
     useEffect(() => {
         const run = async () => {
             nProgress.start();
-            //get basic
+            const response = await new Api().getBasic();
+
+            if (response.status === "ok") {
+                loginAction(response.userID, response.email);
+            }
+            setUserLoadedAction();
             nProgress.done();
         };
         run();
@@ -23,4 +34,11 @@ const Init = () => {
     );
 };
 
-export default Init;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginAction: (userID, email) => dispatch(loginAction(userID, email)),
+        setUserLoadedAction: () => dispatch(setUserLoadedAction()),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Init);
