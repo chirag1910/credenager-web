@@ -52,7 +52,7 @@ const Landing = () => {
                                     </svg>
 
                                     <p>
-                                        Get it on<span>Google Play</span>
+                                        Get it on <span>Google Play</span>
                                     </p>
                                 </div>
                             </a>
@@ -66,14 +66,13 @@ const Landing = () => {
                                     </svg>
 
                                     <p>
-                                        Source code on<span>Github</span>
+                                        Source code on <span>Github</span>
                                     </p>
                                 </div>
                             </a>
                         </Link>
                     </div>
                 </div>
-                <div />
             </div>
 
             <BGCarousel />
