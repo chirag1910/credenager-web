@@ -21,6 +21,13 @@ const Login = ({ user, loginAction }) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        if (user) {
+            router.query = {};
+            router.replace(next ? next : router);
+        }
+    }, [user]);
+
+    useEffect(() => {
         loading ? nprogress.start() : nprogress.done();
     }, [loading]);
 
