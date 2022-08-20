@@ -10,7 +10,7 @@ import {
     setUserLoaded as setUserLoadedAction,
 } from "../redux/action/auth";
 
-const Init = ({ loginAction }) => {
+const Init = ({ loginAction, setUserLoadedAction }) => {
     useEffect(() => {
         const run = async () => {
             nProgress.start();

@@ -4,6 +4,8 @@ import styles from "../../styles/dialog/dialog.module.css";
 import Login from "./Login";
 import Signup from "./Signup";
 import ResetPass from "./ResetPass";
+import VerifyKey from "./VerifyKey";
+import ResetKey from "./ResetKey";
 
 const DialogManager = () => {
     const router = useRouter();
@@ -67,6 +69,10 @@ const DialogManager = () => {
                         <Signup />
                     ) : action === "reset" ? (
                         <ResetPass />
+                    ) : action === "key" ? (
+                        <VerifyKey />
+                    ) : action === "reset_key" ? (
+                        <ResetKey />
                     ) : (
                         <></>
                     )}

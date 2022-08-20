@@ -12,6 +12,14 @@
     margin-bottom: 30px;
 }
 
+.main h3 {
+    color: var(--heading-2);
+    font-weight: 500;
+    font-size: medium;
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+
 .main .or {
     color: var(--status-text);
     margin-top: 30px;
@@ -84,6 +92,11 @@
     }
 
     .main h2 {
+        margin-bottom: 20px;
+    }
+
+    .main h3 {
+        margin-top: -12px;
         margin-bottom: 20px;
     }
 

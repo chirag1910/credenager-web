@@ -129,7 +129,7 @@ const ResetPass = ({ user }) => {
     return (
         <>
             <div className={styles.main}>
-                <h2>Reset password</h2>
+                <h2>Reset Password</h2>
                 <form
                     onSubmit={(e) => {
                         handleSubmit(e);

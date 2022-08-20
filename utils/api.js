@@ -53,6 +53,14 @@ class Api {
         return this.callApi("user/reset/password", { email, otp, password });
     };
 
+    verifyKey = (key) => {
+        return this.callApi("user/verify/key", { key });
+    };
+
+    resetKey = (password, key) => {
+        return this.callApi("user/reset/key", { password, key });
+    };
+
     get = () => {
         return this.callApi("user/");
     };
