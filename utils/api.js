@@ -68,6 +68,10 @@ class Api {
     createGroup = (name) => {
         return this.callApi("group/create", { name });
     };
+
+    updateGroup = (_id, name) => {
+        return this.callApi("group/update", { _id, name });
+    };
 }
 
 export default Api;

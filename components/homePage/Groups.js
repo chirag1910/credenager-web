@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
-import AddGroup from "./AddGroup";
+import CUGroup from "./CUGroup";
 
 const Groups = ({ groups, dataLoaded }) => {
     const router = useRouter();
@@ -96,9 +96,7 @@ const Groups = ({ groups, dataLoaded }) => {
                 )}
             </div>
 
-            {showAddDialog && (
-                <AddGroup close={() => setShowAddDialog(false)} />
-            )}
+            {showAddDialog && <CUGroup close={() => setShowAddDialog(false)} />}
         </>
     );
 };

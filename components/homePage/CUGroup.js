@@ -5,12 +5,21 @@ import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
 import { connect } from "react-redux";
-import { addGroup as addGroupAction } from "../../redux/action/data";
+import {
+    addGroup as addGroupAction,
+    updateGroup as updateGroupAction,
+} from "../../redux/action/data";
 
-const AddGroup = ({ addGroupAction, close }) => {
+const CUGroup = ({
+    addGroupAction,
+    updateGroupAction,
+    groupId,
+    groupName,
+    close,
+}) => {
     const dialog = useRef(null);
 
-    const [name, setName] = useState("");
+    const [name, setName] = useState("" || groupName);
 
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -45,6 +54,7 @@ const AddGroup = ({ addGroupAction, close }) => {
     };
 
     const handleDismiss = () => {
+        setLoading(false);
         setShow(false);
         close();
     };
@@ -55,11 +65,16 @@ const AddGroup = ({ addGroupAction, close }) => {
         if (isValidForm()) {
             setLoading(true);
 
-            const response = await new Api().createGroup(name);
+            const response = groupId
+                ? await new Api().updateGroup(groupId, name)
+                : await new Api().createGroup(name);
 
             if (response.status === "ok") {
                 toast.success(response.message);
-                addGroupAction(response._id, response.name);
+                groupId
+                    ? updateGroupAction(groupId, name)
+                    : addGroupAction(response._id, response.name);
+
                 handleDismiss();
             } else {
                 toast.error(response.error);
@@ -88,7 +103,7 @@ const AddGroup = ({ addGroupAction, close }) => {
             >
                 <div className={dialogStyles.container} ref={dialog}>
                     <div className={styles.main}>
-                        <h2>Add Group</h2>
+                        <h2>{groupId ? "Edit Group" : "Add Group"}</h2>
                         <form
                             onSubmit={(e) => handleSubmit(e)}
                             style={{ marginBottom: "0px" }}
@@ -127,7 +142,8 @@ const AddGroup = ({ addGroupAction, close }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addGroupAction: (id, name) => dispatch(addGroupAction(id, name)),
+        updateGroupAction: (id, name) => dispatch(updateGroupAction(id, name)),
     };
 };
 
-export default connect(null, mapDispatchToProps)(AddGroup);
+export default connect(null, mapDispatchToProps)(CUGroup);
