@@ -18,7 +18,13 @@ const VerifyKey = ({ user, userLoaded, encKey, setKeyAction }) => {
 
     useEffect(() => {
         if (encKey) {
-            router.replace("");
+            router.replace({
+                href: "",
+                query: {
+                    ...router.query,
+                    action: null,
+                },
+            });
         }
     }, [encKey]);
 

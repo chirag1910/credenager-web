@@ -1,0 +1,68 @@
+.main .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.main .header input {
+    background-color: var(--input-bg);
+    font-size: medium;
+    color: var(--heading-2);
+    padding: 15px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.main .header button {
+    background-color: var(--button-primary);
+    font-size: medium;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.main .statusText {
+    font-size: large;
+    color: var(--status-text);
+    text-align: center;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 800px) {
+    .main .header {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .main .header input {
+        padding: 12px;
+    }
+
+    .main .header button {
+        padding: 12px 15px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .main .header {
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .main .header input {
+        font-size: small;
+        padding: 10px;
+    }
+
+    .main .header button {
+        font-size: small;
+        padding: 10px 12px;
+    }
+
+    .main .statusText {
+        font-size: medium;
+    }
+}

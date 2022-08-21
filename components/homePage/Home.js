@@ -11,6 +11,7 @@ import {
 } from "../../redux/action/data";
 import styles from "../../styles/homePage/home.module.css";
 import Groups from "./Groups";
+import Creds from "./Creds";
 
 const Home = ({
     user,
@@ -37,6 +38,7 @@ const Home = ({
                         creds.push({
                             ...cred,
                             value: decrypt(cred.value, encKey),
+                            groupId: group._id,
                         })
                     );
                 });
@@ -66,7 +68,9 @@ const Home = ({
                 <div className={styles.left}>
                     <Groups />
                 </div>
-                <div className={styles.right}></div>
+                <div className={styles.right}>
+                    <Creds />
+                </div>
             </div>
         </>
     );

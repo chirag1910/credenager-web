@@ -12,7 +12,7 @@ const Groups = ({ groups, dataLoaded }) => {
     const [groupType, setGroupType] = useState("");
     const [groupId, setGroupId] = useState("");
 
-    const [showAddDialog, setShowAddDialog] = useState(false);
+    const [showGroupDialog, setShowGroupDialog] = useState(false);
 
     useEffect(() => {
         if (router.isReady) {
@@ -55,7 +55,7 @@ const Groups = ({ groups, dataLoaded }) => {
                             <p>Groups</p>
                             <button
                                 type="button"
-                                onClick={() => setShowAddDialog(true)}
+                                onClick={() => setShowGroupDialog(true)}
                             >
                                 New
                                 <svg viewBox="0 0 15 14" fill="none">
@@ -96,7 +96,9 @@ const Groups = ({ groups, dataLoaded }) => {
                 )}
             </div>
 
-            {showAddDialog && <CUGroup close={() => setShowAddDialog(false)} />}
+            {showGroupDialog && (
+                <CUGroup close={() => setShowGroupDialog(false)} />
+            )}
         </>
     );
 };

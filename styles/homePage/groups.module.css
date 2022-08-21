@@ -1,7 +1,3 @@
-.main {
-    padding: 40px;
-}
-
 .main .header {
     display: flex;
     align-items: center;
@@ -43,10 +39,6 @@
 }
 
 @media only screen and (max-width: 800px) {
-    .main {
-        padding: 30px;
-    }
-
     .main .header {
         gap: 12px;
         margin: 20px 0;
@@ -62,10 +54,6 @@
 }
 
 @media only screen and (max-width: 400px) {
-    .main {
-        padding: 20px;
-    }
-
     .main .header {
         gap: 10px;
         margin: 15px 0;

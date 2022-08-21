@@ -25,7 +25,7 @@
     max-height: 80vh;
     overflow-y: auto;
     background-color: var(--background);
-    border-radius: 10px;
+    border-radius: 8px;
     transform: scale(0);
     transition: transform 0.3s ease-in-out;
 }
@@ -41,7 +41,7 @@
     .main .container {
         width: 100%;
         max-width: none;
-        border-radius: 10px 10px 0 0;
+        border-radius: 8px 10px 0 0;
         transform: translateY(100%);
     }
     .main.show .container {
