@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
+import { decrypt } from "../../utils/crypt";
 import {
     setGroups as setGroupsAction,
     setCreds as setCredsAction,
@@ -32,7 +33,12 @@ const Home = ({
 
                 response.data.forEach((group) => {
                     groups.push({ _id: group._id, name: group.name });
-                    group.credentials.forEach((cred) => creds.push(cred));
+                    group.credentials.forEach((cred) =>
+                        creds.push({
+                            ...cred,
+                            value: decrypt(cred.value, encKey),
+                        })
+                    );
                 });
 
                 setGroupsAction(groups);
