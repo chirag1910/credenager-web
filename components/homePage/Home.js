@@ -13,6 +13,7 @@ import Groups from "./Groups";
 
 const Home = ({
     user,
+    encKey,
     setDataLoadedAction,
     setGroupsAction,
     setCredsAction,
@@ -44,10 +45,10 @@ const Home = ({
             setLoading(false);
         };
 
-        if (user) {
+        if (user && encKey) {
             run();
         }
-    }, [user]);
+    }, [user, encKey]);
 
     useEffect(() => {
         loading ? nprogress.start() : nprogress.done();
@@ -68,6 +69,7 @@ const Home = ({
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
+        encKey: state.auth.key,
     };
 };
 

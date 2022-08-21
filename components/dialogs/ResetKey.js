@@ -66,7 +66,7 @@ const ResetKey = ({ encKey }) => {
     };
 
     const handleAction = (action) => {
-        router.replace({ href: "", query: { action } });
+        router.replace({ href: "", query: { ...router.query, action } });
     };
 
     return (

@@ -1,13 +1,6 @@
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import nprogress from "nprogress";
-import {
-    setGroups as setGroupsAction,
-    setCreds as setCredsAction,
-    setDataLoaded as setDataLoadedAction,
-} from "../../redux/action/data";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
 import AddGroup from "./AddGroup";
@@ -20,7 +13,6 @@ const Groups = ({ groups, dataLoaded }) => {
     const [groupId, setGroupId] = useState("");
 
     const [showAddDialog, setShowAddDialog] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (router.isReady) {
@@ -28,10 +20,6 @@ const Groups = ({ groups, dataLoaded }) => {
             setGroupId(id);
         }
     }, [type, id, router]);
-
-    useEffect(() => {
-        loading ? nprogress.start() : nprogress.done();
-    }, [loading]);
 
     const handleGroups = (type, id, name) => {
         router.replace({

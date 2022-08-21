@@ -26,8 +26,11 @@ const VerifyKey = ({ user, userLoaded, encKey, setKeyAction }) => {
         if (userLoaded && !user) {
             router.replace({
                 href: "",
-                query: { action: "login", next: "?action=key" },
-                // TODO: to be tested
+                query: {
+                    ...router.query,
+                    action: "login",
+                    next: "?action=key",
+                },
             });
         }
     }, [user, userLoaded]);
@@ -45,7 +48,7 @@ const VerifyKey = ({ user, userLoaded, encKey, setKeyAction }) => {
             const response = await new Api().verifyKey(key);
 
             if (response.status === "ok") {
-                toast.success(response.message);
+                toast.success("Key verified");
                 setKeyAction(key);
             } else {
                 toast.error(response.error);
@@ -65,7 +68,7 @@ const VerifyKey = ({ user, userLoaded, encKey, setKeyAction }) => {
     };
 
     const handleAction = (action) => {
-        router.replace({ href: "", query: { action } });
+        router.replace({ href: "", query: { ...router.query, action } });
     };
 
     return (

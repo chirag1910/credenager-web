@@ -1,6 +1,5 @@
 import styles from "../../styles/dialog/authForm.module.css";
 import dialogStyles from "../../styles/dialog/dialog.module.css";
-import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";

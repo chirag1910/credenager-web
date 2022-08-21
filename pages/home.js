@@ -3,17 +3,30 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Home from "../components/homePage/Home";
 
-const HomePage = ({ user, userLoaded }) => {
+const HomePage = ({ user, userLoaded, encKey }) => {
     const router = useRouter();
 
     useEffect(() => {
         if (userLoaded && !user) {
             router.replace({
                 href: "",
-                query: { action: "login" },
+                query: {
+                    ...router.query,
+                    action: "login",
+                    next: "?action=key",
+                },
             });
         }
     }, [user, userLoaded]);
+
+    useEffect(() => {
+        if (user && !encKey) {
+            router.replace({
+                href: "",
+                query: { ...router.query, action: "key" },
+            });
+        }
+    }, [user, encKey]);
 
     return (
         <>
@@ -26,6 +39,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         userLoaded: state.auth.loaded,
+        encKey: state.auth.key,
     };
 };
 
