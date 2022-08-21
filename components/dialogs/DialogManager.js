@@ -51,7 +51,6 @@ const DialogManager = () => {
 
     const handleDismiss = () => {
         setShow(false);
-        router.query = {};
         router.replace({ href: "", query: {} });
     };
 

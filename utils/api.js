@@ -29,10 +29,6 @@ class Api {
         }
     };
 
-    getBasic = () => {
-        return this.callApi("user/basic");
-    };
-
     signup = (email, password, key) => {
         return this.callApi("user/signup", { email, password, key });
     };
@@ -61,8 +57,16 @@ class Api {
         return this.callApi("user/reset/key", { password, key });
     };
 
+    getBasic = () => {
+        return this.callApi("user/basic");
+    };
+
     get = () => {
         return this.callApi("user/");
+    };
+
+    createGroup = (name) => {
+        return this.callApi("group/create", { name });
     };
 }
 

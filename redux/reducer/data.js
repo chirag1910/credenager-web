@@ -20,7 +20,7 @@ const data = (state = INITIAL_STATE, action) => {
     } else if (action.type === types.ADD_GROUP) {
         return {
             ...state,
-            groups: [...state.groups, action.payload],
+            groups: [action.payload, ...state.groups],
         };
     } else if (action.type === types.DELETE_GROUP) {
         return {
@@ -46,7 +46,7 @@ const data = (state = INITIAL_STATE, action) => {
     } else if (action.type === types.ADD_CRED) {
         return {
             ...state,
-            creds: [...state.creds, action.payload],
+            creds: [action.payload, ...state.creds],
         };
     } else if (action.type === types.DELETE_CRED) {
         return {

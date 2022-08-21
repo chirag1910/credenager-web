@@ -42,18 +42,54 @@ li {
 
 :root {
     --background: #fff;
+    --input-bg: #f1ebf6;
+    --cred-card-bg: #f4eff8;
+    --group-card-bg: #e9e0f1;
+
     --heading-1: #2c1542;
     --heading-2: #432062;
     --heading-3: #8c5db6;
     --text-primary: #000;
     --status-text: #592a83;
+
     --button-primary: #7d49ad;
     --button-secondary: #d4c2e4;
-    --cred-card-bg: #f4eff8;
-    --group-card-bg: #e9e0f1;
+
     --divider: #a986c8;
-    --input-bg: #f1ebf6;
     --overlay: #000000aa;
+
     --g-background: rgba(255, 255, 255, 0.2);
     --g-border: rgba(255, 255, 255, 0.5);
+
+    --loading: rgba(255, 255, 255, 0.2);
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.loading::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--loading),
+        transparent
+    );
+    animation: skeletonLoading 1s infinite;
+}
+
+@keyframes skeletonLoading {
+    to {
+        transform: translateX(100%);
+    }
 }

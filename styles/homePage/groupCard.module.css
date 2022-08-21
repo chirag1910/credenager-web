@@ -1,0 +1,101 @@
+.main {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--button-secondary);
+    color: var(--heading-2);
+    border-radius: 8px;
+    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+.main:hover {
+    filter: brightness(0.9);
+}
+.main.selected {
+    background-color: var(--button-primary);
+    color: #fff;
+}
+.main.loading {
+    height: 60px;
+}
+
+.main .container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.main .container .icon {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+.main.selected .container .icon {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.main .container .icon svg {
+    height: 15px;
+    width: auto;
+    fill: var(--heading-2);
+}
+.main.selected .container .icon svg {
+    fill: #fff;
+}
+
+.main .container .icon p {
+    font-size: medium;
+    font-weight: 600;
+    color: var(--heading-2);
+}
+.main.selected .container .icon p {
+    color: #fff;
+}
+
+.container .content {
+    font-size: medium;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 800px) {
+    .main {
+        padding: 12px;
+    }
+    .main.loading {
+        height: 55px;
+    }
+
+    .main .container {
+        gap: 12px;
+    }
+
+    .main .container .icon svg {
+        height: 12px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .main {
+        padding: 10px;
+    }
+    .main.loading {
+        height: 50px;
+    }
+
+    .main .container {
+        gap: 10px;
+    }
+
+    .main .container .icon svg {
+        height: 10px;
+    }
+
+    .main .container .icon p {
+        font-size: medium;
+    }
+
+    .container .content {
+        font-size: small;
+    }
+}
