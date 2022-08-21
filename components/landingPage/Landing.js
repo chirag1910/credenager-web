@@ -9,7 +9,8 @@ const Landing = () => {
 
     const [email, setEmail] = useState("");
 
-    const handleSignupButton = () => {
+    const handleSignupButton = (e) => {
+        e.preventDefault();
         router.replace({
             href: "/",
             query: { action: "signup", prefill: email.trim(), next: "/home" },
@@ -25,24 +26,26 @@ const Landing = () => {
                         <span>Encrypted Credentials Manager!</span> Manage all
                         your digital keys and passwords securely.
                     </p>
-                    <div className={styles.inputGroup}>
-                        <div className={styles.formControl}>
-                            <label htmlFor="email" />
-                            <div className={styles.inputField}>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                    <form onSubmit={(e) => handleSignupButton(e)}>
+                        <div className={styles.inputGroup}>
+                            <div className={styles.formControl}>
+                                <label htmlFor="email" />
+                                <div className={styles.inputField}>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                    />
+                                </div>
                             </div>
+                            <button type="submit">Signup</button>
                         </div>
-                        <button type="button" onClick={handleSignupButton}>
-                            Signup
-                        </button>
-                    </div>
+                    </form>
                     <p>
                         Already have an account?{" "}
                         <span>

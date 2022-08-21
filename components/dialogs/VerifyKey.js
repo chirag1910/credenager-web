@@ -115,6 +115,8 @@ const VerifyKey = ({ user, userLoaded, encKey, setKeyAction }) => {
                 >
                     Forgot key?
                 </button>
+
+                {/* Logout button */}
             </div>
         </>
     );

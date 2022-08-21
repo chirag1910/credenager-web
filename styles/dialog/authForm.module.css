@@ -81,8 +81,11 @@
     width: 100%;
 }
 
-.linkButton:not(:last-child),
-.main p:not(:last-child) {
+.main p {
+    margin-bottom: 20px;
+}
+
+.linkButton:not(:last-child) {
     margin-bottom: 10px;
 }
 
@@ -121,8 +124,11 @@
         padding: 10px 15px;
     }
 
-    .linkButton:not(:last-child),
-    .main p:not(:last-child) {
+    .main p {
+        margin-bottom: 15px;
+    }
+
+    .linkButton:not(:last-child) {
         margin-bottom: 8px;
     }
 }
@@ -154,6 +160,10 @@
 
     .formButton {
         padding: 8px 12px;
+    }
+
+    .main p {
+        margin-bottom: 12px;
     }
 
     .linkButton,

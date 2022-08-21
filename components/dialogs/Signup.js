@@ -153,6 +153,12 @@ const Signup = ({ user, loginAction, setKeyAction }) => {
                     </button>
                 </form>
 
+                <p>
+                    <strong>
+                        Note: Key can never be changed or recovered!
+                    </strong>
+                </p>
+
                 <button
                     className={styles.linkButton}
                     type="button"
@@ -160,8 +166,6 @@ const Signup = ({ user, loginAction, setKeyAction }) => {
                 >
                     Login instead?
                 </button>
-
-                <p>Note: Key can never be changed or recovered!</p>
             </div>
         </>
     );
