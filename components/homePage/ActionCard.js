@@ -10,7 +10,11 @@ const ActionCard = ({ heading, subHeading, icon, action = () => {} }) => {
                         <p>{subHeading}</p>
                     </div>
 
-                    <button type="button" className={styles.icon}>
+                    <button
+                        type="button"
+                        className={styles.icon}
+                        onClick={action}
+                    >
                         {icon}
                     </button>
                 </div>

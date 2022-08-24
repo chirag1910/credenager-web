@@ -1,44 +1,17 @@
-import { connect } from "react-redux";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/homePage/right.module.css";
 import Creds from "./Creds";
 import CUGroup from "./CUGroup";
 import ActionCard from "./ActionCard";
 
-const Right = ({ creds, dataLoaded }) => {
-    const router = useRouter();
-    const { type, id } = router.query;
-
+const Right = ({
+    // group from prop if group
+    group = null,
+}) => {
     const [query, setQuery] = useState("");
-    const [tempCreds, setTempCreds] = useState([]);
-    const [finalCreds, setFinalCreds] = useState([]);
-
-    const [showGroupDialog, setShowGroupDialog] = useState(false);
-
-    useEffect(() => {
-        if (router.isReady) {
-            if (type !== "group") {
-                setTempCreds(creds);
-            } else {
-                setTempCreds(
-                    creds.filter(
-                        (cred) =>
-                            (cred.groupId || undefined) === (id || undefined)
-                    )
-                );
-            }
-        }
-    }, [type, id, router, creds]);
-
-    useEffect(() => {
-        setFinalCreds(
-            tempCreds.filter((cred) =>
-                cred.identifier.toLowerCase().includes(query)
-            )
-        );
-    }, [tempCreds, query]);
+    const [showAddGroup, setShowAddGroup] = useState(false);
+    const [showEditGroup, setShowEditGroup] = useState(false);
 
     return (
         <>
@@ -71,7 +44,7 @@ const Right = ({ creds, dataLoaded }) => {
                     <ActionCard
                         heading="New Credential"
                         subHeading={`Create a new credential${
-                            type === "group" ? " in this group" : ""
+                            group?.type === "group" ? " in this group" : ""
                         }`}
                         icon={
                             <svg viewBox="0 0 15 14" fill="none">
@@ -80,7 +53,7 @@ const Right = ({ creds, dataLoaded }) => {
                         }
                     />
 
-                    {type === "group" && id && (
+                    {group?.type === "group" && group?.id && (
                         <>
                             <ActionCard
                                 heading="Edit Group"
@@ -90,6 +63,7 @@ const Right = ({ creds, dataLoaded }) => {
                                         <path d="M17.7489 15.067C18.3128 15.067 18.7714 15.5005 18.7714 16.0335C18.7714 16.5675 18.3128 17 17.7489 17H11.9695C11.4057 17 10.9471 16.5675 10.9471 16.0335C10.9471 15.5005 11.4057 15.067 11.9695 15.067H17.7489ZM13.7409 0.660227L15.2338 1.76685C15.846 2.21356 16.2542 2.80241 16.3938 3.42171C16.5549 4.10295 16.3831 4.772 15.8997 5.35069L7.00675 16.0819C6.59861 16.5692 5.99716 16.8433 5.35274 16.8535L1.80842 16.8941C1.6151 16.8941 1.45399 16.7723 1.41103 16.5997L0.605507 13.3407C0.465882 12.7417 0.605507 12.1224 1.01364 11.6453L7.31822 4.03086C7.42562 3.90903 7.61895 3.88974 7.74783 3.9801L10.4007 5.94969C10.5725 6.08167 10.8088 6.15274 11.0559 6.12228C11.5821 6.06137 11.9366 5.61466 11.8829 5.13749C11.8506 4.89383 11.7218 4.69078 11.5499 4.53849C11.4962 4.49788 8.97223 2.60951 8.97223 2.60951C8.81112 2.48768 8.7789 2.26433 8.90779 2.11305L9.90664 0.903887C10.8303 -0.202738 12.4414 -0.304263 13.7409 0.660227Z" />
                                     </svg>
                                 }
+                                action={() => setShowEditGroup(true)}
                             />
 
                             <ActionCard
@@ -112,6 +86,7 @@ const Right = ({ creds, dataLoaded }) => {
                                 <path d="M7.422 0.131149C7.12819 0.131149 6.84641 0.245381 6.63866 0.448716C6.4309 0.652051 6.31419 0.927832 6.31419 1.21539V5.55235H1.88294C1.58913 5.55235 1.30736 5.66659 1.0996 5.86992C0.891847 6.07326 0.775131 6.34904 0.775131 6.63659C0.775131 6.92415 0.891847 7.19993 1.0996 7.40327C1.30736 7.6066 1.58913 7.72083 1.88294 7.72083H6.31419V12.0578C6.31419 12.3454 6.4309 12.6211 6.63866 12.8245C6.84641 13.0278 7.12819 13.142 7.422 13.142C7.71581 13.142 7.99758 13.0278 8.20534 12.8245C8.41309 12.6211 8.52981 12.3454 8.52981 12.0578V7.72083H12.9611C13.2549 7.72083 13.5366 7.6066 13.7444 7.40327C13.9522 7.19993 14.0689 6.92415 14.0689 6.63659C14.0689 6.34904 13.9522 6.07326 13.7444 5.86992C13.5366 5.66659 13.2549 5.55235 12.9611 5.55235H8.52981V1.21539C8.52981 0.927832 8.41309 0.652051 8.20534 0.448716C7.99758 0.245381 7.71581 0.131149 7.422 0.131149Z" />
                             </svg>
                         }
+                        action={() => setShowAddGroup(true)}
                     />
                 </div>
 
@@ -119,15 +94,17 @@ const Right = ({ creds, dataLoaded }) => {
                     <Creds />
                 </div>
             </div>
+
+            {showAddGroup && <CUGroup close={() => setShowAddGroup(false)} />}
+            {showEditGroup && (
+                <CUGroup
+                    groupId={group?.id}
+                    groupName={group?.name}
+                    close={() => setShowEditGroup(false)}
+                />
+            )}
         </>
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        creds: state.data.creds,
-        dataLoaded: state.data.loaded,
-    };
-};
-
-export default connect(mapStateToProps)(Right);
+export default Right;

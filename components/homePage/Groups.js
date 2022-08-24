@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
-import CUGroup from "./CUGroup";
 
 const Groups = ({ groups, dataLoaded }) => {
     const router = useRouter();
@@ -12,21 +11,18 @@ const Groups = ({ groups, dataLoaded }) => {
     const [groupType, setGroupType] = useState("");
     const [groupId, setGroupId] = useState("");
 
-    const [showGroupDialog, setShowGroupDialog] = useState(false);
-
     useEffect(() => {
         if (router.isReady) {
-            setGroupType(type === "group" ? "group" : "all");
-            setGroupId(id);
+            setGroupType(type);
+            setGroupId(id || undefined);
         }
     }, [type, id, router]);
 
-    const handleGroups = (type, id, name) => {
+    const handleGroups = (type, id) => {
         router.replace({
             href: "",
             query: {
                 type,
-                name,
                 id,
             },
         });
@@ -61,15 +57,10 @@ const Groups = ({ groups, dataLoaded }) => {
                                     name={group.name || "Ungrouped"}
                                     selected={
                                         groupType === "group" &&
-                                        (group._id || undefined) ===
-                                            (groupId || undefined)
+                                        (group._id || undefined) === groupId
                                     }
                                     onClick={() => {
-                                        handleGroups(
-                                            "group",
-                                            group._id,
-                                            group.name
-                                        );
+                                        handleGroups("group", group._id);
                                     }}
                                 />
                             ))}
@@ -83,10 +74,6 @@ const Groups = ({ groups, dataLoaded }) => {
                     )}
                 </div>
             </div>
-
-            {showGroupDialog && (
-                <CUGroup close={() => setShowGroupDialog(false)} />
-            )}
         </>
     );
 };

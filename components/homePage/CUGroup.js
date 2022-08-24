@@ -13,9 +13,9 @@ import {
 const CUGroup = ({
     addGroupAction,
     updateGroupAction,
-    groupId,
-    groupName,
-    close,
+    groupId = null,
+    groupName = null,
+    close = () => {},
 }) => {
     const dialog = useRef(null);
 
@@ -129,7 +129,7 @@ const CUGroup = ({
                                 type="submit"
                                 disabled={loading}
                             >
-                                Add
+                                {groupId ? "Edit" : "Add"}
                             </button>
                         </form>
                     </div>
