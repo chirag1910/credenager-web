@@ -1,6 +1,12 @@
 import styles from "../../styles/homePage/groupCard.module.css";
 
-const GroupCard = ({ name, icon, selected, onClick, loaded = true }) => {
+const GroupCard = ({
+    name,
+    icon = null,
+    selected = false,
+    onClick = {},
+    loaded = true,
+}) => {
     return loaded ? (
         <>
             <button

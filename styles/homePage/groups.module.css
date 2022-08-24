@@ -1,73 +1,74 @@
+.main {
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--background);
+    padding: 25px;
+}
+
 .main .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 15px;
-    margin: 30px 0;
+    margin-bottom: 40px;
 }
 
-.main .header p {
-    font-size: large;
-    font-weight: 600;
-    color: var(--heading-1);
-}
-
-.main .header button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 4px 8px;
-    border-radius: 5px;
-    color: #fff;
-    background-color: var(--button-primary);
-    font-size: medium;
-    font-weight: 500;
-}
-
-.main .header button svg {
-    fill: #fff;
-    height: 15px;
+.main .header img {
+    height: 45px;
     width: auto;
+}
+
+.main .header h1 {
+    color: var(--heading-1);
+    font-size: xx-large;
+    font-weight: 600;
 }
 
 .main .container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 20px;
+    gap: 15px;
 }
 
 @media only screen and (max-width: 800px) {
-    .main .header {
-        gap: 12px;
-        margin: 20px 0;
+    .main {
+        padding: 20px;
     }
 
-    .main .header svg {
-        height: 12px;
+    .main .header {
+        gap: 12px;
+        margin-bottom: 40px;
+    }
+
+    .main .header img {
+        height: 40px;
     }
 
     .main .container {
-        gap: 15px;
+        gap: 12px;
     }
 }
 
 @media only screen and (max-width: 400px) {
+    .main {
+        padding: 15px;
+    }
+
     .main .header {
         gap: 10px;
-        margin: 15px 0;
+        margin-bottom: 30px;
     }
 
-    .main .header p {
-        font-size: medium;
+    .main .header h1 {
+        font-size: x-large;
     }
 
-    .main .header svg {
-        height: 10px;
+    .main .header img {
+        height: 35px;
     }
 
     .main .container {
-        gap: 12px;
+        gap: 10px;
     }
 }

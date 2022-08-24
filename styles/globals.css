@@ -61,7 +61,7 @@ li {
     --g-background: rgba(255, 255, 255, 0.2);
     --g-border: rgba(255, 255, 255, 0.5);
 
-    --loading: rgba(255, 255, 255, 0.2);
+    --loading: var(--button-secondary);
 }
 
 .loading {
