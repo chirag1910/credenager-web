@@ -4,19 +4,16 @@ import { useState, useEffect } from "react";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
 
-const Groups = ({ groups, dataLoaded }) => {
+const Groups = ({ groups, dataLoaded, selectedGroup }) => {
     const router = useRouter();
-    const { type, id } = router.query;
 
-    const [groupType, setGroupType] = useState("");
-    const [groupId, setGroupId] = useState("");
+    const [groupType, setGroupType] = useState("all");
+    const [groupId, setGroupId] = useState(undefined);
 
     useEffect(() => {
-        if (router.isReady) {
-            setGroupType(type);
-            setGroupId(id || undefined);
-        }
-    }, [type, id, router]);
+        setGroupType(selectedGroup?.type);
+        setGroupId(selectedGroup?.id || undefined);
+    }, [selectedGroup]);
 
     const handleGroups = (type, id) => {
         router.replace({
@@ -53,7 +50,7 @@ const Groups = ({ groups, dataLoaded }) => {
                             />
                             {groups.map((group) => (
                                 <GroupCard
-                                    key={group._id}
+                                    key={group._id || "null"}
                                     name={group.name || "Ungrouped"}
                                     selected={
                                         groupType === "group" &&

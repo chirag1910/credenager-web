@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
@@ -16,12 +17,16 @@ import Right from "./Right";
 const Home = ({
     user,
     encKey,
+    groups,
+    dataLoaded,
     setDataLoadedAction,
     setGroupsAction,
     setCredsAction,
 }) => {
-    // verify groupid if present
+    const router = useRouter();
+    const { type, id } = router.query;
 
+    const [selectedGroup, setSelectedGroup] = useState({});
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -61,6 +66,30 @@ const Home = ({
     }, [user, encKey]);
 
     useEffect(() => {
+        if (router.isReady && dataLoaded) {
+            let group = null;
+
+            if (type === "group") {
+                group = groups.find(
+                    (g) => (g._id || undefined) === (id || undefined)
+                );
+            }
+
+            if (!group) {
+                group = { type: "all", id: null };
+            } else {
+                group = {
+                    type: "group",
+                    id: group._id || undefined,
+                    name: group.name,
+                };
+            }
+
+            setSelectedGroup(group);
+        }
+    }, [type, id, router, dataLoaded, groups]);
+
+    useEffect(() => {
         loading ? nprogress.start() : nprogress.done();
     }, [loading]);
 
@@ -68,10 +97,10 @@ const Home = ({
         <>
             <div className={styles.main}>
                 <div className={styles.left}>
-                    <Groups />
+                    <Groups selectedGroup={selectedGroup} />
                 </div>
                 <div className={styles.right}>
-                    <Right />
+                    <Right selectedGroup={selectedGroup} />
                 </div>
             </div>
         </>
@@ -82,6 +111,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         encKey: state.auth.key,
+        groups: state.data.groups,
+        dataLoaded: state.data.loaded,
     };
 };
 

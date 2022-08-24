@@ -5,10 +5,7 @@ import Creds from "./Creds";
 import CUGroup from "./CUGroup";
 import ActionCard from "./ActionCard";
 
-const Right = ({
-    // group from prop if group
-    group = null,
-}) => {
+const Right = ({ selectedGroup }) => {
     const [query, setQuery] = useState("");
     const [showAddGroup, setShowAddGroup] = useState(false);
     const [showEditGroup, setShowEditGroup] = useState(false);
@@ -44,7 +41,7 @@ const Right = ({
                     <ActionCard
                         heading="New Credential"
                         subHeading={`Create a new credential${
-                            group?.type === "group" ? " in this group" : ""
+                            selectedGroup?.id ? " in this group" : ""
                         }`}
                         icon={
                             <svg viewBox="0 0 15 14" fill="none">
@@ -53,7 +50,7 @@ const Right = ({
                         }
                     />
 
-                    {group?.type === "group" && group?.id && (
+                    {selectedGroup?.id && (
                         <>
                             <ActionCard
                                 heading="Edit Group"
@@ -91,15 +88,15 @@ const Right = ({
                 </div>
 
                 <div className={styles.container}>
-                    <Creds />
+                    <Creds query={query} selectedGroup={selectedGroup} />
                 </div>
             </div>
 
             {showAddGroup && <CUGroup close={() => setShowAddGroup(false)} />}
             {showEditGroup && (
                 <CUGroup
-                    groupId={group?.id}
-                    groupName={group?.name}
+                    groupId={selectedGroup?.id}
+                    groupName={selectedGroup?.name}
                     close={() => setShowEditGroup(false)}
                 />
             )}
