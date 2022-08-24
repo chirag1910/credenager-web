@@ -15,7 +15,8 @@
 
 .main .header img {
     height: 45px;
-    width: auto;
+    width: 45px;
+    object-fit: cover;
 }
 
 .main .header h1 {
@@ -38,15 +39,22 @@
 
     .main .header {
         gap: 12px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     .main .header img {
         height: 40px;
+        width: 40px;
     }
 
     .main .container {
         gap: 12px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .main .header h1 {
+        justify-content: center;
     }
 }
 
@@ -57,7 +65,7 @@
 
     .main .header {
         gap: 10px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .main .header h1 {
@@ -66,6 +74,7 @@
 
     .main .header img {
         height: 35px;
+        width: 35px;
     }
 
     .main .container {

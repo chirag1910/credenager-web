@@ -4,7 +4,7 @@ const GroupCard = ({
     name,
     icon = null,
     selected = false,
-    onClick = {},
+    onClick = () => {},
     loaded = true,
 }) => {
     return loaded ? (

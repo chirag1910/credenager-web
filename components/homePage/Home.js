@@ -11,7 +11,7 @@ import {
 } from "../../redux/action/data";
 import styles from "../../styles/homePage/home.module.css";
 import Groups from "./Groups";
-import Creds from "./Creds";
+import Right from "./Right";
 
 const Home = ({
     user,
@@ -69,7 +69,7 @@ const Home = ({
                     <Groups />
                 </div>
                 <div className={styles.right}>
-                    <Creds />
+                    <Right />
                 </div>
             </div>
         </>
