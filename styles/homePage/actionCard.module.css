@@ -3,6 +3,9 @@
     background-color: var(--background);
     border-radius: 10px;
 }
+.main.loading {
+    height: 94px;
+}
 
 .main .container {
     display: flex;
@@ -44,6 +47,9 @@
     .main {
         padding: 15px;
     }
+    .main.loading {
+        height: 84px;
+    }
 
     .main .container {
         gap: 12px;
@@ -51,6 +57,13 @@
 }
 
 @media only screen and (max-width: 400px) {
+    .main {
+        padding: 12px;
+    }
+    .main.loading {
+        height: 72px;
+    }
+
     .main .container .info h3 {
         font-size: large;
     }
