@@ -48,9 +48,10 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
         }
     };
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(value);
+    const handleCopy = (text) => {
+        navigator.clipboard.writeText(text);
         setCopied(true);
+        toast.info("Copied!");
         setTimeout(() => {
             setCopied(false);
         }, 1000);
@@ -115,6 +116,13 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                         onChange={(e) => setIdentifier(e.target.value)}
                         disabled={!allowEditing || loading}
                     />
+                    {!allowEditing && (
+                        <div
+                            className={styles.overlay}
+                            title="Click to copy"
+                            onClick={() => handleCopy(identifier)}
+                        />
+                    )}
                 </td>
                 <td className={styles.credInput}>
                     <input
@@ -124,6 +132,13 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                         onChange={(e) => setValue(e.target.value)}
                         disabled={!allowEditing || loading}
                     />
+                    {!allowEditing && (
+                        <div
+                            className={styles.overlay}
+                            title="Click to copy"
+                            onClick={() => handleCopy(value)}
+                        />
+                    )}
                 </td>
                 <td>
                     <div className={styles.actions}>
@@ -163,7 +178,10 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                                 </>
                             ) : (
                                 <>
-                                    <button type="button" onClick={handleCopy}>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleCopy(value)}
+                                    >
                                         {copied ? (
                                             <svg
                                                 viewBox="0 0 67 67"
