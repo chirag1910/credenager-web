@@ -76,6 +76,14 @@ class Api {
     deleteGroup = (_id) => {
         return this.callApi("group/delete", { _id });
     };
+
+    updateCred = (_id, identifier, value) => {
+        return this.callApi("credential/update", { _id, identifier, value });
+    };
+
+    deleteCred = (_id) => {
+        return this.callApi("credential/delete", { _id });
+    }
 }
 
 export default Api;

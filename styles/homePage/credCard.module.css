@@ -1,6 +1,12 @@
 .tr td {
     padding: 8px 0;
+}
+.tr:not(:last-child) td {
     border-bottom: 1px solid var(--group-card-bg);
+    transition: border-color 300ms ease-in-out;
+}
+.tr:hover td {
+    border-color: var(--status-text);
 }
 
 .tr td input {
@@ -9,10 +15,10 @@
     border-radius: 5px;
     font-size: medium;
     font-weight: 500;
-    background-color: var(--cred-card-bg);
-}
-.tr td input:disabled {
     background-color: transparent;
+}
+.tr td input.editing {
+    background-color: var(--cred-card-bg);
 }
 
 .tr td.idInput input {

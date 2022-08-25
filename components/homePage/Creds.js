@@ -24,7 +24,6 @@ const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
     }, [selectedGroup, creds]);
 
     useEffect(() => {
-        console.log(tempCreds);
         setFinalCreds(
             tempCreds.filter((cred) =>
                 cred.identifier.toLowerCase().includes(query)
