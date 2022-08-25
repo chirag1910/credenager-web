@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
 
-const Groups = ({ groups, dataLoaded, selectedGroup }) => {
+const Groups = ({ groups, dataLoaded, toggleGroupMenu, selectedGroup }) => {
     const router = useRouter();
 
     const [groupType, setGroupType] = useState("all");
@@ -30,6 +30,31 @@ const Groups = ({ groups, dataLoaded, selectedGroup }) => {
             <div className={styles.main}>
                 <div className={styles.header}>
                     <img src="/logo.webp" alt="Credenager logo" />
+                    <button type="button" onClick={toggleGroupMenu}>
+                        <svg viewBox="0 0 30 23" fill="none">
+                            <path
+                                d="M2 2H27.4"
+                                stroke="white"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                            <path
+                                d="M2 11.0714H27.4"
+                                stroke="white"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                            <path
+                                d="M2 20.1428H27.4"
+                                stroke="white"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </button>
                     <h1>Credenager</h1>
                 </div>
 

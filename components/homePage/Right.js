@@ -11,7 +11,12 @@ import CUGroup from "./CUGroup";
 import ActionCard from "./ActionCard";
 import ConfirmationDialog from "../ConfirmationDialog";
 
-const Right = ({ selectedGroup, dataLoaded, deleteGroupAction }) => {
+const Right = ({
+    selectedGroup,
+    dataLoaded,
+    toggleGroupMenu,
+    deleteGroupAction,
+}) => {
     const [query, setQuery] = useState("");
     const [showAddGroup, setShowAddGroup] = useState(false);
     const [showAddCred, setShowAddCred] = useState(false);
@@ -44,6 +49,32 @@ const Right = ({ selectedGroup, dataLoaded, deleteGroupAction }) => {
         <>
             <div className={styles.main}>
                 <div className={styles.header}>
+                    <button type="button" onClick={toggleGroupMenu}>
+                        <svg viewBox="0 0 30 23" fill="none">
+                            <path
+                                d="M2 2H27.4"
+                                stroke="white"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                            <path
+                                d="M2 11.0714H27.4"
+                                stroke="white"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                            <path
+                                d="M2 20.1428H27.4"
+                                stroke="white"
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </button>
+
                     <input
                         type="text"
                         id="query"

@@ -27,6 +27,7 @@ const Home = ({
     const { type, id } = router.query;
 
     const [selectedGroup, setSelectedGroup] = useState({});
+    const [showGroupMenu, setShowGroupMenu] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -93,14 +94,29 @@ const Home = ({
         loading ? nprogress.start() : nprogress.done();
     }, [loading]);
 
+    const toggleGroupMenu = () => {
+        setShowGroupMenu(!showGroupMenu);
+    };
+
     return (
         <>
             <div className={styles.main}>
-                <div className={[styles.left, styles.show].join(" ")}>
-                    <Groups selectedGroup={selectedGroup} />
+                <div
+                    className={[
+                        styles.left,
+                        showGroupMenu ? styles.show : undefined,
+                    ].join(" ")}
+                >
+                    <Groups
+                        selectedGroup={selectedGroup}
+                        toggleGroupMenu={toggleGroupMenu}
+                    />
                 </div>
                 <div className={styles.right}>
-                    <Right selectedGroup={selectedGroup} />
+                    <Right
+                        selectedGroup={selectedGroup}
+                        toggleGroupMenu={toggleGroupMenu}
+                    />
                     <div className={styles.overlay} />
                 </div>
             </div>

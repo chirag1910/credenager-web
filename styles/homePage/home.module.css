@@ -22,7 +22,7 @@
 
 .main .left {
     transform: translateX(0);
-    transition: tranform 300ms ease-in-out;
+    transition: transform 300ms ease-in-out;
 }
 
 @media only screen and (max-width: 700px) {

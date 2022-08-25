@@ -12,6 +12,10 @@
     margin-bottom: 35px;
 }
 
+.main .header button {
+    display: none !important;
+}
+
 .main .header input {
     background-color: var(--background);
     font-size: medium;
@@ -21,7 +25,8 @@
     border-radius: 999px;
 }
 
-.main .header .icon {
+.main .header .icon,
+.main .header button {
     padding: 15px;
     border-radius: 999px;
     background-color: var(--button-primary);
@@ -30,7 +35,8 @@
     justify-content: center;
 }
 
-.main .header .icon svg {
+.main .header .icon svg,
+.main .header button svg {
     height: 20px;
     width: 20px;
     fill: #fff;
@@ -71,11 +77,13 @@
         padding: 12px;
     }
 
-    .main .header .icon {
+    .main .header .icon,
+    .main .header button {
         padding: 12px;
     }
 
-    .main .header .icon svg {
+    .main .header .icon svg,
+    .main .header button svg {
         height: 15px;
         width: 15px;
     }
@@ -84,6 +92,12 @@
         grid-template-columns: 1fr;
         margin-bottom: 15px;
         gap: 12px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .main .header button {
+        display: flex !important;
     }
 }
 
@@ -102,11 +116,13 @@
         padding: 10px 12px;
     }
 
-    .main .header .icon {
+    .main .header .icon,
+    .main .header button {
         padding: 10px;
     }
 
-    .main .header .icon svg {
+    .main .header .icon svg,
+    .main .header button svg {
         height: 12px;
         width: 12px;
     }

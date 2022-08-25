@@ -19,6 +19,22 @@
     object-fit: cover;
 }
 
+.main .header button {
+    display: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--button-primary);
+}
+
+.main .header button svg {
+    width: 100%;
+    height: 100%;
+}
+
 .main .header h1 {
     color: var(--heading-1);
     font-size: xx-large;
@@ -53,6 +69,14 @@
 }
 
 @media only screen and (max-width: 700px) {
+    .main .header img {
+        display: none;
+    }
+
+    .main .header button {
+        display: flex;
+    }
+
     .main .header h1 {
         justify-content: center;
     }
@@ -72,9 +96,10 @@
         font-size: x-large;
     }
 
-    .main .header img {
+    .main .header button {
         height: 35px;
         width: 35px;
+        padding: 10px;
     }
 
     .main .container {
