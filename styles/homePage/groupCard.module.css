@@ -3,7 +3,7 @@
     padding: 10px 15px;
     color: var(--heading-2);
     border-radius: 999px;
-    background-color: var(--input-bg);
+    background-color: var(--group-card-bg);
     transition: background-color 0.3s ease-in-out;
 }
 .main:hover {

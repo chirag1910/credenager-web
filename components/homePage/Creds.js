@@ -1,13 +1,11 @@
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import styles from "../../styles/homePage/creds.module.css";
-import CUGroup from "./CUGroup";
+import CredCard from "./CredCard";
 
 const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
     const [tempCreds, setTempCreds] = useState([]);
     const [finalCreds, setFinalCreds] = useState([]);
-
-    const [showGroupDialog, setShowGroupDialog] = useState(false);
 
     useEffect(() => {
         if (selectedGroup?.type) {
@@ -26,6 +24,7 @@ const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
     }, [selectedGroup, creds]);
 
     useEffect(() => {
+        console.log(tempCreds);
         setFinalCreds(
             tempCreds.filter((cred) =>
                 cred.identifier.toLowerCase().includes(query)
@@ -38,11 +37,26 @@ const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
             <div className={styles.main}>
                 {dataLoaded ? (
                     <>
+                        <div className={styles.header}>
+                            <h3>Credentials</h3>
+                        </div>
+
                         {finalCreds.length ? (
                             <div className={styles.container}>
-                                {finalCreds.map((cred) => (
-                                    <p>{cred.identifier}</p>
-                                ))}
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Identifier</th>
+                                            <th>Credential</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {finalCreds.map((cred) => (
+                                            <CredCard cred={cred} />
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         ) : (
                             <p className={styles.statusText}>
@@ -56,10 +70,6 @@ const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
                     </>
                 )}
             </div>
-
-            {showGroupDialog && (
-                <CUGroup close={() => setShowGroupDialog(false)} />
-            )}
         </>
     );
 };

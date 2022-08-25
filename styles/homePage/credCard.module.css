@@ -1,0 +1,40 @@
+.tr td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--group-card-bg);
+}
+
+.tr td input {
+    padding: 8px 10px;
+    width: calc(100% - 5px);
+    border-radius: 5px;
+    font-size: medium;
+    font-weight: 500;
+    background-color: var(--cred-card-bg);
+}
+.tr td input:disabled {
+    background-color: transparent;
+}
+
+.tr td.idInput input {
+    color: var(--heading-3);
+}
+.tr td.credInput input {
+    color: var(--heading-2);
+}
+
+@media only screen and (max-width: 800px) {
+    .tr td {
+        padding: 5px 0;
+    }
+
+    .tr td input {
+        padding: 5px 8px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .tr td input {
+        font-size: small;
+        font-weight: 400;
+    }
+}

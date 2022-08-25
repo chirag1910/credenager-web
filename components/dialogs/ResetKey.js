@@ -88,6 +88,7 @@ const ResetKey = ({ encKey }) => {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                autoFocus="true"
                             />
                             <button
                                 type="button"

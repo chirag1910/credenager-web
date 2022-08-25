@@ -1,27 +1,43 @@
-.main .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 30px;
+.main {
+    padding: 20px;
+    background-color: var(--background);
+    border-radius: 10px;
+    height: 100%;
 }
 
-.main .header input {
+.main .header h3 {
+    font-size: x-large;
+    font-weight: 600;
+    color: var(--heading-2);
+}
+
+.main .container table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 15px;
+}
+
+.main .container table thead th {
+    padding: 10px;
+    color: var(--status-text);
     background-color: var(--input-bg);
     font-size: medium;
-    color: var(--heading-2);
-    padding: 15px;
-    width: 100%;
-    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    text-align: left;
+}
+.main .container table thead th:first-child {
+    border-radius: 5px 0 0 5px;
+}
+.main .container table thead th:last-child {
+    border-radius: 0 5px 5px 0;
 }
 
-.main .header button {
-    background-color: var(--button-primary);
-    font-size: medium;
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-weight: 600;
+.main .container table tbody::before {
+    height: 10px;
+    display: table-row;
+    content: "";
 }
 
 .main .statusText {
@@ -32,37 +48,44 @@
 }
 
 @media only screen and (max-width: 800px) {
-    .main .header {
-        gap: 12px;
-        margin-bottom: 20px;
+    .main {
+        padding: 15px;
     }
 
-    .main .header input {
-        padding: 12px;
+    .main .container table {
+        margin-top: 12px;
     }
 
-    .main .header button {
-        padding: 12px 15px;
+    .main .container table thead th {
+        padding: 8px;
+    }
+
+    .main .container table tbody::before {
+        height: 8px;
     }
 }
 
 @media only screen and (max-width: 400px) {
-    .main .header {
-        gap: 10px;
-        margin-bottom: 15px;
+    .main {
+        padding: 12px;
     }
 
-    .main .header input {
-        font-size: small;
-        padding: 10px;
+    .main .header h3 {
+        font-size: large;
     }
 
-    .main .header button {
+    .main .container table {
+        margin-top: 10px;
+    }
+
+    .main .container table thead th {
         font-size: small;
-        padding: 10px 12px;
     }
 
     .main .statusText {
         font-size: medium;
+        color: var(--status-text);
+        text-align: center;
+        font-weight: 500;
     }
 }

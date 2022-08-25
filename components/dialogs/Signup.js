@@ -100,6 +100,7 @@ const Signup = ({ user, loginAction, setKeyAction }) => {
                                 placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                autoFocus="true"
                             />
                         </div>
                     </div>
