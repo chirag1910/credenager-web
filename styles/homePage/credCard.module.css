@@ -22,6 +22,46 @@
     color: var(--heading-2);
 }
 
+.tr td .actions {
+    position: relative;
+}
+
+.actions .menu {
+    --first-icon-height: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(50%, calc(var(--first-icon-height) / 2));
+    width: fit-content;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 7px;
+    border-radius: 999px;
+    max-height: var(--first-icon-height);
+    overflow-y: hidden;
+    transition: max-height 300ms ease-in-out, background-color 300ms ease-in-out;
+}
+.actions .menu:hover,
+.actions .menu:focus {
+    background-color: var(--cred-card-bg);
+    max-height: 150px;
+}
+
+.actions .menu button {
+    transition: transform 300ms ease-in-out;
+}
+.actions .menu button:hover {
+    transform: scale(1.1);
+}
+
+.actions .menu button svg {
+    fill: var(--button-primary);
+    width: 17px;
+    height: 17px;
+}
+
 @media only screen and (max-width: 800px) {
     .tr td {
         padding: 5px 0;
@@ -29,6 +69,20 @@
 
     .tr td input {
         padding: 5px 8px;
+    }
+
+    .actions .menu {
+        --first-icon-height: 30px;
+        padding: 8px 7px;
+    }
+    .actions .menu:hover {
+        max-height: 140px;
+    }
+
+    .actions .menu button svg {
+        fill: var(--button-primary);
+        width: 15px;
+        height: 15px;
     }
 }
 
