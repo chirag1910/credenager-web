@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import nprogress from "nprogress";
 import Link from "next/link";
 import styles from "../../styles/homePage/right.module.css";
+import Api from "../../utils/api";
+import { deleteGroup as deleteGroupAction } from "../../redux/action/data";
 import Creds from "./Creds";
 import CUGroup from "./CUGroup";
 import ActionCard from "./ActionCard";
+import ConfirmationDialog from "../ConfirmationDialog";
 
-const Right = ({ selectedGroup, dataLoaded }) => {
+const Right = ({ selectedGroup, dataLoaded, deleteGroupAction }) => {
     const [query, setQuery] = useState("");
     const [showAddGroup, setShowAddGroup] = useState(false);
     const [showEditGroup, setShowEditGroup] = useState(false);
+    const [showDeleteGroup, setShowDeleteGroup] = useState(false);
+
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.done();
+    }, [loading]);
+
+    const handleDeleteGroup = async () => {
+        setLoading(true);
+
+        const response = await new Api().deleteGroup(selectedGroup.id);
+
+        if (response.status === "ok") {
+            setShowDeleteGroup(false);
+            toast.success(response.message);
+            deleteGroupAction(selectedGroup.id);
+        } else {
+            toast.error(response.error);
+        }
+
+        setLoading(false);
+    };
 
     return (
         <>
@@ -80,6 +108,7 @@ const Right = ({ selectedGroup, dataLoaded }) => {
                                                 <path d="M15.245 5.69256C15.4349 5.69256 15.6073 5.76651 15.7434 5.89146C15.8704 6.02491 15.9343 6.19066 15.9158 6.36576C15.9158 6.42356 15.4081 12.1525 15.1181 14.5639C14.9365 16.0438 13.8674 16.9422 12.2637 16.9669C11.0306 16.9915 9.82529 17 8.6385 17C7.37853 17 6.14635 16.9915 4.95031 16.9669C3.40036 16.9337 2.33031 16.0191 2.15799 14.5639C1.85967 12.144 1.36124 6.42356 1.35198 6.36576C1.34271 6.19066 1.40571 6.02491 1.53356 5.89146C1.65956 5.76651 1.84114 5.69256 2.03199 5.69256H15.245ZM10.6017 0C11.4439 0 12.1962 0.524445 12.4139 1.27244L12.5695 1.89293C12.6955 2.39868 13.1865 2.75652 13.7517 2.75652H16.5292C16.8998 2.75652 17.2083 3.03107 17.2083 3.38042V3.70341C17.2083 4.04426 16.8998 4.32731 16.5292 4.32731H0.741538C0.370031 4.32731 0.0615234 4.04426 0.0615234 3.70341V3.38042C0.0615234 3.03107 0.370031 2.75652 0.741538 2.75652H3.51903C4.08324 2.75652 4.57426 2.39868 4.70118 1.89378L4.84664 1.31409C5.07269 0.524445 5.81663 0 6.66804 0H10.6017Z" />
                                             </svg>
                                         }
+                                        action={() => setShowDeleteGroup(true)}
                                     />
                                 </>
                             )}
@@ -117,6 +146,14 @@ const Right = ({ selectedGroup, dataLoaded }) => {
                     close={() => setShowEditGroup(false)}
                 />
             )}
+            {showDeleteGroup && (
+                <ConfirmationDialog
+                    heading="All group credentials will also be deleted"
+                    buttonText="Delete"
+                    onCancel={() => setShowDeleteGroup(false)}
+                    onSuccess={handleDeleteGroup}
+                />
+            )}
         </>
     );
 };
@@ -127,4 +164,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Right);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteGroupAction: (id) => dispatch(deleteGroupAction(id)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Right);

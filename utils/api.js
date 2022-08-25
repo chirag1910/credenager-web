@@ -72,6 +72,10 @@ class Api {
     updateGroup = (_id, name) => {
         return this.callApi("group/update", { _id, name });
     };
+
+    deleteGroup = (_id) => {
+        return this.callApi("group/delete", { _id });
+    };
 }
 
 export default Api;

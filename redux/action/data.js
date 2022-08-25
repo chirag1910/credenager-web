@@ -14,11 +14,11 @@ export const setGroups = (groups) => {
     };
 };
 
-export const addGroup = (id, name) => {
+export const addGroup = (_id, name) => {
     return {
         type: types.ADD_GROUP,
         payload: {
-            id,
+            _id,
             name,
         },
     };
@@ -48,11 +48,11 @@ export const setCreds = (creds) => {
     };
 };
 
-export const addCred = (id, identifier, value) => {
+export const addCred = (_id, identifier, value) => {
     return {
         type: types.ADD_CRED,
         payload: {
-            id,
+            _id,
             identifier,
             value,
         },

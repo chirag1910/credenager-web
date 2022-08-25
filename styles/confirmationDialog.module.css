@@ -1,0 +1,114 @@
+.main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    background-color: var(--overlay);
+    z-index: 11;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.main.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.main .body {
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: var(--background);
+    border-radius: 8px;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+}
+.main.show .body {
+    transform: scale(1);
+}
+
+.body .container {
+    padding: 40px;
+    text-align: center;
+    width: 100%;
+    text-align: center;
+}
+
+.body .container h3 {
+    color: var(--heading-1);
+    font-weight: 500;
+    font-size: x-large;
+    margin-bottom: 30px;
+}
+
+.body .buttonGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: stretch;
+    gap: 15px;
+}
+
+.buttonGroup button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: medium;
+    font-weight: 500;
+    color: #fff;
+    background-color: var(--button-primary);
+    transition: box-shadow 300ms ease-in-out;
+}
+.buttonGroup button:first-child {
+    background-color: var(--button-secondary);
+    color: var(--heading-2);
+}
+
+.buttonGroup button:hover {
+    box-shadow: 3px 3px 25px var(--button-primary);
+}
+.buttonGroup button:first-child:hover {
+    box-shadow: 3px 3px 25px var(--button-secondary);
+}
+
+@media only screen and (max-width: 800px) {
+    .body .container {
+        padding: 30px;
+    }
+
+    .body .container h3 {
+        margin-bottom: 20px;
+    }
+
+    .body .buttonGroup {
+        gap: 12px;
+    }
+
+    .buttonGroup button {
+        padding: 10px 15px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .body .container {
+        padding: 20px;
+    }
+
+    .body .container h3 {
+        margin-bottom: 15px;
+        font-size: large;
+    }
+
+    .body .buttonGroup {
+        gap: 10px;
+    }
+
+    .buttonGroup button {
+        padding: 8px 12px;
+        font-size: small;
+    }
+}

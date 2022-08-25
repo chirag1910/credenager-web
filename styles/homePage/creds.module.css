@@ -45,6 +45,7 @@
     color: var(--status-text);
     text-align: center;
     font-weight: 500;
+    margin: 50px 0;
 }
 
 @media only screen and (max-width: 800px) {

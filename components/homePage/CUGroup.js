@@ -120,6 +120,7 @@ const CUGroup = ({
                                         onChange={(e) =>
                                             setName(e.target.value)
                                         }
+                                        autoFocus="true"
                                     />
                                 </div>
                             </div>
