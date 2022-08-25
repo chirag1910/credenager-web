@@ -96,11 +96,12 @@ const Home = ({
     return (
         <>
             <div className={styles.main}>
-                <div className={styles.left}>
+                <div className={[styles.left, styles.show].join(" ")}>
                     <Groups selectedGroup={selectedGroup} />
                 </div>
                 <div className={styles.right}>
                     <Right selectedGroup={selectedGroup} />
+                    <div className={styles.overlay} />
                 </div>
             </div>
         </>
