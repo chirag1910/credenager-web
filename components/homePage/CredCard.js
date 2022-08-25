@@ -113,6 +113,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                         className={allowEditing ? styles.editing : undefined}
                         type="text"
                         value={identifier}
+                        placeholder="Identifier"
                         onChange={(e) => setIdentifier(e.target.value)}
                         disabled={!allowEditing || loading}
                     />
@@ -129,6 +130,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                         className={allowEditing ? styles.editing : undefined}
                         type={showCred || allowEditing ? "text" : "password"}
                         value={value}
+                        placeholder="Credential"
                         onChange={(e) => setValue(e.target.value)}
                         disabled={!allowEditing || loading}
                     />
@@ -166,13 +168,8 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                                         onClick={handleEditCancel}
                                         disabled={loading}
                                     >
-                                        <svg viewBox="0 0 58 58" fill="none">
-                                            <path
-                                                d="M53.5477 53.5477L4 4.00009M53.5477 4L4.00006 53.5477"
-                                                stroke="var(--button-primary)"
-                                                strokeWidth="7"
-                                                strokeLinecap="round"
-                                            />
+                                        <svg viewBox="0 0 72 72" fill="none">
+                                            <path d="M36 0C16.1215 0 0 16.1215 0 36C0 55.8785 16.1215 72 36 72C55.8785 72 72 55.8785 72 36C72 16.1215 55.8785 0 36 0ZM53.1818 48.2727L48.2727 53.1818L36 40.9091L23.7273 53.1818L18.8182 48.2727L31.0909 36L18.8182 23.7273L23.7273 18.8182L36 31.0909L48.2727 18.8182L53.1818 23.7273L40.9091 36L53.1818 48.2727Z" />
                                         </svg>
                                     </button>
                                 </>

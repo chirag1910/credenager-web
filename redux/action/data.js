@@ -48,13 +48,14 @@ export const setCreds = (creds) => {
     };
 };
 
-export const addCred = (_id, identifier, value) => {
+export const addCred = (_id, identifier, value, groupId) => {
     return {
         type: types.ADD_CRED,
         payload: {
             _id,
             identifier,
             value,
+            groupId,
         },
     };
 };

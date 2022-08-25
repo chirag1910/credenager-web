@@ -2,8 +2,16 @@ import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import styles from "../../styles/homePage/creds.module.css";
 import CredCard from "./CredCard";
+import AddCredCard from "./AddCredCard";
 
-const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
+const Creds = ({
+    creds,
+    dataLoaded,
+    query,
+    showAddCred,
+    setShowAddCred,
+    selectedGroup,
+}) => {
     const [tempCreds, setTempCreds] = useState([]);
     const [finalCreds, setFinalCreds] = useState([]);
 
@@ -40,7 +48,7 @@ const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
                             <h3>Credentials</h3>
                         </div>
 
-                        {finalCreds.length ? (
+                        {finalCreds.length || showAddCred ? (
                             <div className={styles.container}>
                                 <table>
                                     <thead>
@@ -51,6 +59,14 @@ const Creds = ({ creds, dataLoaded, query, selectedGroup }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {showAddCred && (
+                                            <AddCredCard
+                                                groupId={selectedGroup?.id}
+                                                onHide={() =>
+                                                    setShowAddCred(false)
+                                                }
+                                            />
+                                        )}
                                         {finalCreds.map((cred) => (
                                             <CredCard cred={cred} />
                                         ))}

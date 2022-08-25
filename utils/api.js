@@ -77,13 +77,21 @@ class Api {
         return this.callApi("group/delete", { _id });
     };
 
+    createCred = (identifier, value, groupId) => {
+        return this.callApi("credential/create", {
+            identifier,
+            value,
+            groupId,
+        });
+    };
+
     updateCred = (_id, identifier, value) => {
         return this.callApi("credential/update", { _id, identifier, value });
     };
 
     deleteCred = (_id) => {
         return this.callApi("credential/delete", { _id });
-    }
+    };
 }
 
 export default Api;
