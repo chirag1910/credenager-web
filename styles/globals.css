@@ -64,6 +64,30 @@ li {
     --loading: var(--button-secondary);
 }
 
+html[data-theme="dark"] {
+    --background: #21161b;
+    --input-bg: #30282c;
+    --cred-card-bg: #312129;
+    --group-card-bg: #412c36;
+
+    --heading-1: #f6f1f3;
+    --heading-2: #ede2e7;
+    --heading-3: #dac5cf;
+    --text-primary: #fff;
+    --status-text: #c8a8b8;
+
+    --button-primary: #a36e88;
+    --button-secondary: #412c36;
+
+    --divider: #ffffff1a;
+    --overlay: #000000aa;
+
+    --g-background: rgba(255, 255, 255, 0.2);
+    --g-border: rgba(255, 255, 255, 0.5);
+
+    --loading: var(--button-secondary);
+}
+
 .loading {
     width: 100%;
     height: 100%;

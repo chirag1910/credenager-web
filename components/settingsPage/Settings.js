@@ -255,7 +255,7 @@ const Settings = ({
                         }
                         onClick={() =>
                             handleRedirect(
-                                "https://play.google.com/store/apps/details?id=com.credenager "
+                                "https://play.google.com/store/apps/details?id=com.credenager"
                             )
                         }
                     />
