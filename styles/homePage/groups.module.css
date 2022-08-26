@@ -28,6 +28,10 @@
     align-items: center;
     padding: 12px;
     background-color: var(--button-primary);
+    transition: box-shadow 300ms ease-in-out;
+}
+.main .header button:hover {
+    box-shadow: 3px 3px 25px var(--button-primary);
 }
 
 .main .header button svg {

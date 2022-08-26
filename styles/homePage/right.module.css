@@ -33,6 +33,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: box-shadow 300ms ease-in-out;
+}
+.main .header .icon:hover,
+.main .header button:hover {
+    box-shadow: 3px 3px 25px var(--button-primary);
 }
 
 .main .header .icon svg,

@@ -35,6 +35,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: box-shadow 300ms ease-in-out;
+}
+.main .container .icon:hover {
+    box-shadow: 3px 3px 25px var(--button-primary);
 }
 
 .main .container .icon svg {
