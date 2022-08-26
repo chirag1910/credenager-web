@@ -1,12 +1,25 @@
+import { connect } from "react-redux";
+import { useRouter } from "next/dist/client/router";
 import styles from "../../styles/dialog/authForm.module.css";
 import dialogStyles from "../../styles/dialog/dialog.module.css";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
-import {} from "../../redux/action/auth";
+import { logout as logoutAction } from "../../redux/action/auth";
+import {
+    setCreds as setCredsAction,
+    setGroups as setGroupsAction,
+} from "../../redux/action/data";
 
-const DeleteAccount = ({ close = () => {} }) => {
+const DeleteAccount = ({
+    close = () => {},
+    logoutAction,
+    setCredsAction,
+    setGroupsAction,
+}) => {
+    const router = useRouter();
+
     const dialog = useRef(null);
 
     const [pass, setPass] = useState("");
@@ -56,20 +69,36 @@ const DeleteAccount = ({ close = () => {} }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO
+
+        if (isValidForm()) {
+            setLoading(true);
+
+            const response = await new Api().deleteAccount(pass, key);
+
+            if (response.status === "ok") {
+                toast.success(response.message);
+                setCredsAction([]);
+                setGroupsAction([]);
+                logoutAction();
+                router.push("/");
+            } else {
+                toast.error(response.error);
+            }
+
+            setLoading(false);
+        }
     };
 
     const isValidForm = () => {
-        if (!oldPass) {
-            toast.error("Old password is required");
-            return false;
-        }
-
         if (!pass) {
-            toast.error("New password is required");
+            toast.error("Password is required");
             return false;
         }
 
+        if (!key) {
+            toast.error("Encryption key is required");
+            return false;
+        }
         return true;
     };
 
@@ -95,7 +124,7 @@ const DeleteAccount = ({ close = () => {} }) => {
                                         type={showPass ? "text" : "password"}
                                         id="pass"
                                         name="pass"
-                                        placeholder="New Password"
+                                        placeholder="Password"
                                         value={pass}
                                         onChange={(e) =>
                                             setPass(e.target.value)
@@ -169,4 +198,12 @@ const DeleteAccount = ({ close = () => {} }) => {
     );
 };
 
-export default DeleteAccount;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutAction: () => dispatch(logoutAction()),
+        setGroupsAction: (groups) => dispatch(setGroupsAction(groups)),
+        setCredsAction: (creds) => dispatch(setCredsAction(creds)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(DeleteAccount);

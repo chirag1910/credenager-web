@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
-import {} from "../../redux/action/auth";
 
 const ChangePass = ({ close = () => {} }) => {
     const dialog = useRef(null);
@@ -54,7 +53,21 @@ const ChangePass = ({ close = () => {} }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO
+
+        if (isValidForm()) {
+            setLoading(true);
+
+            const response = await new Api().changePassword(oldPass, pass);
+
+            if (response.status === "ok") {
+                toast.success(response.message);
+                handleDismiss();
+            } else {
+                toast.error(response.error);
+            }
+
+            setLoading(false);
+        }
     };
 
     const isValidForm = () => {

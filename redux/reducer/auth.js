@@ -16,7 +16,7 @@ const auth = (state = INITIAL_STATE, action) => {
         return {
             ...state,
             user: action.payload,
-            key: null,
+            key: action.payload,
         };
     } else if (action.type === types.SET_USER_LOADED) {
         return {

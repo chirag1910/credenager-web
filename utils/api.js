@@ -57,6 +57,18 @@ class Api {
         return this.callApi("user/reset/key", { password, key });
     };
 
+    changePassword = (oldPassword, password) => {
+        return this.callApi("user/update/password", { oldPassword, password });
+    };
+
+    deleteAccount = (password, key) => {
+        return this.callApi("user/delete", { password, key });
+    };
+
+    logout = () => {
+        return this.callApi("user/logout");
+    };
+
     getBasic = () => {
         return this.callApi("user/basic");
     };

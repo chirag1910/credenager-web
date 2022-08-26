@@ -1,17 +1,24 @@
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/dist/client/router";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
 import { getTheme, setTheme, changeTheme } from "../../utils/theme";
-import {} from "../../redux/action/auth";
+import { logout as logoutAction } from "../../redux/action/auth";
+import {
+    setCreds as setCredsAction,
+    setGroups as setGroupsAction,
+} from "../../redux/action/data";
 import styles from "../../styles/settingsPage/settings.module.css";
 import SettingCard from "./SettingCard";
 import ConfirmationDialog from "../ConfirmationDialog";
 import ChangePass from "./ChangePass";
 import DeleteAccount from "./DeleteAccount";
 
-const Settings = ({ user }) => {
+const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
+    const router = useRouter();
+
     const [loading, setLoading] = useState(false);
 
     const [themeTemp, setThemeTemp] = useState("light");
@@ -37,7 +44,23 @@ const Settings = ({ user }) => {
         setLoading(false);
     };
 
-    const handleLogout = async () => {};
+    const handleLogout = async () => {
+        setLoading(true);
+
+        const response = await new Api().logout();
+
+        if (response.status === "ok") {
+            toast.success(response.message);
+            setCredsAction([]);
+            setGroupsAction([]);
+            logoutAction();
+            router.push("/");
+        } else {
+            toast.error(response.error);
+        }
+
+        setLoading(false);
+    };
 
     const handleRedirect = (link) => {
         window.open(link, "_blank");
@@ -240,4 +263,12 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Settings);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutAction: () => dispatch(logoutAction()),
+        setGroupsAction: (groups) => dispatch(setGroupsAction(groups)),
+        setCredsAction: (creds) => dispatch(setCredsAction(creds)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
