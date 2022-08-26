@@ -4,31 +4,34 @@ import { useRouter } from "next/dist/client/router";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
 import Api from "../../utils/api";
-import { getTheme, setTheme, changeTheme } from "../../utils/theme";
+import { setTheme } from "../../utils/theme";
 import { logout as logoutAction } from "../../redux/action/auth";
 import {
     setCreds as setCredsAction,
     setGroups as setGroupsAction,
 } from "../../redux/action/data";
+import { setTheme as setThemeAction } from "../../redux/action/misc";
 import styles from "../../styles/settingsPage/settings.module.css";
 import SettingCard from "./SettingCard";
 import ConfirmationDialog from "../ConfirmationDialog";
 import ChangePass from "./ChangePass";
 import DeleteAccount from "./DeleteAccount";
 
-const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
+const Settings = ({
+    theme,
+    user,
+    logoutAction,
+    setCredsAction,
+    setGroupsAction,
+    setThemeAction,
+}) => {
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
 
-    const [themeTemp, setThemeTemp] = useState("light");
     const [showChangePass, setShowChangePass] = useState(false);
     const [showDeleteAccount, setShowDeleteAccount] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
-
-    useEffect(() => {
-        setThemeTemp(getTheme());
-    }, []);
 
     useEffect(() => {
         loading ? nprogress.start() : nprogress.done();
@@ -41,10 +44,9 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
 
     const handleTheme = () => {
         setLoading(true);
-        const newTheme = themeTemp === "light" ? "dark" : "light";
-        changeTheme(newTheme);
+        const newTheme = theme === "light" ? "dark" : "light";
         setTheme(newTheme);
-        setThemeTemp(newTheme);
+        setThemeAction(newTheme);
         toast.success(`Theme changed to ${newTheme}`);
         setLoading(false);
     };
@@ -79,11 +81,11 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
 
                     <SettingCard
                         heading="Change theme"
-                        subheading={`Switch website's theme from ${themeTemp} to ${
-                            themeTemp === "light" ? "dark" : "light"
+                        subheading={`Switch website's theme from ${theme} to ${
+                            theme === "light" ? "dark" : "light"
                         }`}
                         icon={
-                            themeTemp === "dark" ? (
+                            theme === "dark" ? (
                                 <svg viewBox="0 0 76 76" fill="none">
                                     <path
                                         d="M35.1671 1.22228H40.3894V14.278H35.1671V1.22228Z"
@@ -283,6 +285,7 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
+        theme: state.misc.theme,
     };
 };
 
@@ -291,6 +294,7 @@ const mapDispatchToProps = (dispatch) => {
         logoutAction: () => dispatch(logoutAction()),
         setGroupsAction: (groups) => dispatch(setGroupsAction(groups)),
         setCredsAction: (creds) => dispatch(setCredsAction(creds)),
+        setThemeAction: (theme) => dispatch(setThemeAction(theme)),
     };
 };
 

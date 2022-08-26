@@ -24,3 +24,10 @@ export const setShowAddCred = (show) => {
         payload: show,
     };
 };
+
+export const setTheme = (theme) => {
+    return {
+        type: types.SET_THEME,
+        payload: theme,
+    };
+};

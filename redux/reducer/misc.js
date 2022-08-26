@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     activeGroup: null,
     showGroupMenu: false,
     showAddCred: false,
+    theme: "light",
 };
 
 const misc = (state = INITIAL_STATE, action) => {
@@ -21,6 +22,11 @@ const misc = (state = INITIAL_STATE, action) => {
         return {
             ...state,
             showAddCred: action.payload,
+        };
+    } else if (action.type === types.SET_THEME) {
+        return {
+            ...state,
+            theme: action.payload,
         };
     } else {
         return state;
