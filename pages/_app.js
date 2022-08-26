@@ -1,3 +1,4 @@
+import Head from "next/head";
 import "../styles/globals.css";
 import nProgress from "nprogress";
 import "../styles/nprogress.css";
@@ -12,10 +13,19 @@ function MyApp({ Component, pageProps }) {
     Router.events.on("routeChangeComplete", nProgress.done);
 
     return (
-        <Provider store={store}>
-            <Component {...pageProps} />
-            <Init />
-        </Provider>
+        <>
+            <Head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+            </Head>
+
+            <Provider store={store}>
+                <Component {...pageProps} />
+                <Init />
+            </Provider>
+        </>
     );
 }
 

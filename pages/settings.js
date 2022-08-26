@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -20,6 +21,10 @@ const SettingsPage = ({ user, userLoaded }) => {
 
     return (
         <>
+            <Head>
+                <title>Settings · Credenager</title>
+            </Head>
+
             <Settings />
         </>
     );

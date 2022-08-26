@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -30,6 +31,10 @@ const HomePage = ({ user, userLoaded, encKey }) => {
 
     return (
         <>
+            <Head>
+                <title>Home · Credenager</title>
+            </Head>
+
             <Home />
         </>
     );
