@@ -10,6 +10,10 @@ import {
     setCreds as setCredsAction,
     setDataLoaded as setDataLoadedAction,
 } from "../../redux/action/data";
+import {
+    setActiveGroup as setActiveGroupAction,
+    setShowGroupMenu as setShowGroupMenuAction,
+} from "../../redux/action/misc";
 import styles from "../../styles/homePage/home.module.css";
 import Groups from "./Groups";
 import Right from "./Right";
@@ -19,17 +23,18 @@ const Home = ({
     encKey,
     groups,
     dataLoaded,
+    showGroupMenu,
     setDataLoadedAction,
     setGroupsAction,
     setCredsAction,
+    setActiveGroupAction,
+    setShowGroupMenuAction,
 }) => {
     const router = useRouter();
     const { type, id } = router.query;
 
     const leftComponent = useRef(null);
 
-    const [selectedGroup, setSelectedGroup] = useState({});
-    const [showGroupMenu, setShowGroupMenu] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -79,21 +84,15 @@ const Home = ({
             }
 
             if (!group) {
-                group = { type: "all", id: null };
+                setActiveGroupAction("all", null, "All");
             } else {
-                group = {
-                    type: "group",
-                    id: group._id || undefined,
-                    name: group.name,
-                };
+                setActiveGroupAction("group", group._id, group.name);
             }
-
-            setSelectedGroup(group);
         }
     }, [type, id, router, dataLoaded, groups]);
 
     useEffect(() => {
-        setShowGroupMenu(false);
+        setShowGroupMenuAction(false);
     }, [router]);
 
     useEffect(() => {
@@ -114,12 +113,8 @@ const Home = ({
             leftComponent.current &&
             !leftComponent.current.contains(e.target)
         ) {
-            setShowGroupMenu(false);
+            setShowGroupMenuAction(false);
         }
-    };
-
-    const toggleGroupMenu = () => {
-        setShowGroupMenu(!showGroupMenu);
     };
 
     return (
@@ -132,16 +127,10 @@ const Home = ({
                     ].join(" ")}
                     ref={leftComponent}
                 >
-                    <Groups
-                        selectedGroup={selectedGroup}
-                        toggleGroupMenu={toggleGroupMenu}
-                    />
+                    <Groups />
                 </div>
                 <div className={styles.right}>
-                    <Right
-                        selectedGroup={selectedGroup}
-                        toggleGroupMenu={toggleGroupMenu}
-                    />
+                    <Right />
                     <div className={styles.overlay} />
                 </div>
             </div>
@@ -155,6 +144,7 @@ const mapStateToProps = (state) => {
         encKey: state.auth.key,
         groups: state.data.groups,
         dataLoaded: state.data.loaded,
+        showGroupMenu: state.misc.showGroupMenu,
     };
 };
 
@@ -163,6 +153,10 @@ const mapDispatchToProps = (dispatch) => {
         setGroupsAction: (groups) => dispatch(setGroupsAction(groups)),
         setCredsAction: (creds) => dispatch(setCredsAction(creds)),
         setDataLoadedAction: () => dispatch(setDataLoadedAction()),
+        setActiveGroupAction: (type, id, name) =>
+            dispatch(setActiveGroupAction(type, id, name)),
+        setShowGroupMenuAction: (show) =>
+            dispatch(setShowGroupMenuAction(show)),
     };
 };
 

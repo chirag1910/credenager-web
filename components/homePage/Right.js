@@ -6,20 +6,26 @@ import Link from "next/link";
 import styles from "../../styles/homePage/right.module.css";
 import Api from "../../utils/api";
 import { deleteGroup as deleteGroupAction } from "../../redux/action/data";
+import {
+    setShowGroupMenu as setShowGroupMenuAction,
+    setShowAddCred as setShowAddCredAction,
+} from "../../redux/action/misc";
 import Creds from "./Creds";
 import CUGroup from "./CUGroup";
 import ActionCard from "./ActionCard";
 import ConfirmationDialog from "../ConfirmationDialog";
 
 const Right = ({
-    selectedGroup,
     dataLoaded,
-    toggleGroupMenu,
+    activeGroup,
+    showGroupMenu,
+    showAddCred,
     deleteGroupAction,
+    setShowGroupMenuAction,
+    setShowAddCredAction,
 }) => {
     const [query, setQuery] = useState("");
     const [showAddGroup, setShowAddGroup] = useState(false);
-    const [showAddCred, setShowAddCred] = useState(false);
     const [showEditGroup, setShowEditGroup] = useState(false);
     const [showDeleteGroup, setShowDeleteGroup] = useState(false);
 
@@ -32,12 +38,12 @@ const Right = ({
     const handleDeleteGroup = async () => {
         setLoading(true);
 
-        const response = await new Api().deleteGroup(selectedGroup.id);
+        const response = await new Api().deleteGroup(activeGroup?.id);
 
         if (response.status === "ok") {
             setShowDeleteGroup(false);
             toast.success(response.message);
-            deleteGroupAction(selectedGroup.id);
+            deleteGroupAction(activeGroup.id);
         } else {
             toast.error(response.error);
         }
@@ -49,7 +55,10 @@ const Right = ({
         <>
             <div className={styles.main}>
                 <div className={styles.header}>
-                    <button type="button" onClick={toggleGroupMenu}>
+                    <button
+                        type="button"
+                        onClick={() => setShowGroupMenuAction(!showGroupMenu)}
+                    >
                         <svg viewBox="0 0 30 23" fill="none">
                             <path
                                 d="M2 2H27.4"
@@ -104,7 +113,7 @@ const Right = ({
                             <ActionCard
                                 heading="New Credential"
                                 subHeading={`Create a new credential${
-                                    selectedGroup?.id ? " in this group" : ""
+                                    activeGroup?.id ? " in this group" : ""
                                 }`}
                                 icon={
                                     <svg
@@ -117,10 +126,12 @@ const Right = ({
                                         <path d="M7.422 0.131149C7.12819 0.131149 6.84641 0.245381 6.63866 0.448716C6.4309 0.652051 6.31419 0.927832 6.31419 1.21539V5.55235H1.88294C1.58913 5.55235 1.30736 5.66659 1.0996 5.86992C0.891847 6.07326 0.775131 6.34904 0.775131 6.63659C0.775131 6.92415 0.891847 7.19993 1.0996 7.40327C1.30736 7.6066 1.58913 7.72083 1.88294 7.72083H6.31419V12.0578C6.31419 12.3454 6.4309 12.6211 6.63866 12.8245C6.84641 13.0278 7.12819 13.142 7.422 13.142C7.71581 13.142 7.99758 13.0278 8.20534 12.8245C8.41309 12.6211 8.52981 12.3454 8.52981 12.0578V7.72083H12.9611C13.2549 7.72083 13.5366 7.6066 13.7444 7.40327C13.9522 7.19993 14.0689 6.92415 14.0689 6.63659C14.0689 6.34904 13.9522 6.07326 13.7444 5.86992C13.5366 5.66659 13.2549 5.55235 12.9611 5.55235H8.52981V1.21539C8.52981 0.927832 8.41309 0.652051 8.20534 0.448716C7.99758 0.245381 7.71581 0.131149 7.422 0.131149Z" />
                                     </svg>
                                 }
-                                action={() => setShowAddCred(!showAddCred)}
+                                action={() =>
+                                    setShowAddCredAction(!showAddCred)
+                                }
                             />
 
-                            {selectedGroup?.id && (
+                            {activeGroup?.id && (
                                 <>
                                     <ActionCard
                                         heading="Edit Group"
@@ -173,20 +184,15 @@ const Right = ({
                 </div>
 
                 <div className={styles.container}>
-                    <Creds
-                        query={query}
-                        showAddCred={showAddCred}
-                        setShowAddCred={setShowAddCred}
-                        selectedGroup={selectedGroup}
-                    />
+                    <Creds query={query} />
                 </div>
             </div>
 
             {showAddGroup && <CUGroup close={() => setShowAddGroup(false)} />}
             {showEditGroup && (
                 <CUGroup
-                    groupId={selectedGroup?.id}
-                    groupName={selectedGroup?.name}
+                    groupId={activeGroup?.id}
+                    groupName={activeGroup?.name}
                     close={() => setShowEditGroup(false)}
                 />
             )}
@@ -205,12 +211,18 @@ const Right = ({
 const mapStateToProps = (state) => {
     return {
         dataLoaded: state.data.loaded,
+        activeGroup: state.misc.activeGroup,
+        showGroupMenu: state.misc.showGroupMenu,
+        showAddCred: state.misc.showAddCred,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         deleteGroupAction: (id) => dispatch(deleteGroupAction(id)),
+        setShowGroupMenuAction: (show) =>
+            dispatch(setShowGroupMenuAction(show)),
+        setShowAddCredAction: (show) => dispatch(setShowAddCredAction(show)),
     };
 };
 
