@@ -3,7 +3,14 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const BGCarousel = () => {
-    const carouselImages = ["./mockup_1.webp", "./mockup_2.webp"];
+    const carouselImages = [
+        "./mockup_1.webp",
+        "./mockup_2.webp",
+        "./mockup_3.webp",
+        "./mockup_4.webp",
+        "./mockup_5.webp",
+        "./mockup_6.webp",
+    ];
     const responsive = {
         any: {
             breakpoint: { max: 4000, min: 0 },
