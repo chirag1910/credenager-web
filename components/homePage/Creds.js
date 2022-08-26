@@ -44,50 +44,56 @@ const Creds = ({
 
     return (
         <>
-            <div className={styles.main}>
-                {dataLoaded ? (
-                    <>
-                        <div className={styles.header}>
-                            <h3>Credentials</h3>
-                        </div>
-
+            {dataLoaded ? (
+                <>
+                    <div className={styles.main}>
                         {finalCreds.length || showAddCred ? (
-                            <div className={styles.container}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Identifier</th>
-                                            <th>Credential</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {showAddCred && (
-                                            <AddCredCard
-                                                groupId={activeGroup?.id}
-                                                onHide={() =>
-                                                    setShowAddCredAction(false)
-                                                }
-                                            />
-                                        )}
-                                        {finalCreds.map((cred) => (
-                                            <CredCard cred={cred} />
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                            <>
+                                <div className={styles.header}>
+                                    <h3>Credentials</h3>
+                                </div>
+
+                                <div className={styles.container}>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Identifier</th>
+                                                <th>Credential</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {showAddCred && (
+                                                <AddCredCard
+                                                    groupId={activeGroup?.id}
+                                                    onHide={() =>
+                                                        setShowAddCredAction(
+                                                            false
+                                                        )
+                                                    }
+                                                />
+                                            )}
+                                            {finalCreds.map((cred) => (
+                                                <CredCard cred={cred} />
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </>
                         ) : (
                             <p className={styles.statusText}>
                                 {query ? "No credentials found" : "Empty Group"}
                             </p>
                         )}
-                    </>
-                ) : (
-                    <>
-                        <div className={styles.container}></div>
-                    </>
-                )}
-            </div>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className={[styles.main, styles.loading].join(" ")}>
+                        <div className={styles.loader} />
+                    </div>
+                </>
+            )}
         </>
     );
 };
