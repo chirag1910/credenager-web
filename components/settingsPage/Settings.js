@@ -34,6 +34,11 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
         loading ? nprogress.start() : nprogress.done();
     }, [loading]);
 
+    const handleCopy = (text) => {
+        navigator.clipboard.writeText(text);
+        toast.info("Copied!");
+    };
+
     const handleTheme = () => {
         setLoading(true);
         const newTheme = themeTemp === "light" ? "dark" : "light";
@@ -70,6 +75,8 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
         <>
             <div className={styles.main}>
                 <div className={styles.container}>
+                    <h2>Personalize</h2>
+
                     <SettingCard
                         heading="Change theme"
                         subheading={`Switch website's theme from ${themeTemp} to ${
@@ -140,6 +147,20 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
                         disabled={loading}
                     />
 
+                    <h2>Account</h2>
+
+                    <SettingCard
+                        heading={user?.email}
+                        subheading="Is your current email address"
+                        icon={
+                            <svg viewBox="0 0 16 17" fill="none">
+                                <path d="M2.07162 2.9541L2.07118 12.0417C2.07118 13.9194 3.63726 15.4559 5.61713 15.5758L5.86668 15.5833L12.5686 15.5843C12.2557 16.4092 11.4124 17 10.4213 17H5.10758C2.59214 17 0.552979 15.0972 0.552979 12.75V4.95833C0.552979 4.03294 1.18689 3.2457 2.07162 2.9541ZM13.4577 0C14.7154 0 15.735 0.951395 15.735 2.125V12.0417C15.735 13.2153 14.7154 14.1667 13.4577 14.1667H5.86668C4.60896 14.1667 3.58938 13.2153 3.58938 12.0417V2.125C3.58938 0.951395 4.60896 0 5.86668 0H13.4577Z" />
+                            </svg>
+                        }
+                        onClick={() => handleCopy(user?.email)}
+                        loading={!user}
+                    />
+
                     <SettingCard
                         heading="Change password"
                         subheading="Change your account password"
@@ -188,6 +209,8 @@ const Settings = ({ user, logoutAction, setCredsAction, setGroupsAction }) => {
                         loading={!user}
                         disabled={loading}
                     />
+
+                    <h2>Other</h2>
 
                     <SettingCard
                         heading="Github"
