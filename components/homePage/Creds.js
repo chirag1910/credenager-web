@@ -74,7 +74,10 @@ const Creds = ({
                                                 />
                                             )}
                                             {finalCreds.map((cred) => (
-                                                <CredCard cred={cred} />
+                                                <CredCard
+                                                    key={cred._id}
+                                                    cred={cred}
+                                                />
                                             ))}
                                         </tbody>
                                     </table>
