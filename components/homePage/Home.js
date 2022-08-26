@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import nprogress from "nprogress";
@@ -25,6 +25,8 @@ const Home = ({
 }) => {
     const router = useRouter();
     const { type, id } = router.query;
+
+    const leftComponent = useRef(null);
 
     const [selectedGroup, setSelectedGroup] = useState({});
     const [showGroupMenu, setShowGroupMenu] = useState(false);
@@ -91,8 +93,30 @@ const Home = ({
     }, [type, id, router, dataLoaded, groups]);
 
     useEffect(() => {
+        setShowGroupMenu(false);
+    }, [router]);
+
+    useEffect(() => {
+        window.addEventListener("mousedown", handleMouseClick);
+
+        return () => {
+            window.removeEventListener("mousedown", handleMouseClick);
+        };
+    }, [showGroupMenu, leftComponent]);
+
+    useEffect(() => {
         loading ? nprogress.start() : nprogress.done();
     }, [loading]);
+
+    const handleMouseClick = (e) => {
+        if (
+            showGroupMenu &&
+            leftComponent.current &&
+            !leftComponent.current.contains(e.target)
+        ) {
+            setShowGroupMenu(false);
+        }
+    };
 
     const toggleGroupMenu = () => {
         setShowGroupMenu(!showGroupMenu);
@@ -106,6 +130,7 @@ const Home = ({
                         styles.left,
                         showGroupMenu ? styles.show : undefined,
                     ].join(" ")}
+                    ref={leftComponent}
                 >
                     <Groups
                         selectedGroup={selectedGroup}
