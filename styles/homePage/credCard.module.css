@@ -36,9 +36,7 @@
     width: 100%;
     height: 100%;
     opacity: 0.5;
-    cursor: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxNSAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuMzAwMzggMy43ODAzM0wyLjMgMTIuMzMzM0MyLjMgMTQuMTAwNiAzLjY0MSAxNS41NDY3IDUuMzM2MzEgMTUuNjU5Nkw1LjU1IDE1LjY2NjdMMTEuMjg4NyAxNS42Njc2QzExLjAyMDggMTYuNDQzOSAxMC4yOTg3IDE3IDkuNDUgMTdINC45QzIuNzQ2MDkgMTcgMSAxNS4yMDkxIDEgMTNWNS42NjY2N0MxIDQuNzk1NzEgMS41NDI4MSA0LjA1NDc4IDIuMzAwMzggMy43ODAzM1YzLjc4MDMzWk0xMi4wNSAxQzEzLjEyNyAxIDE0IDEuODk1NDMgMTQgM1YxMi4zMzMzQzE0IDEzLjQzNzkgMTMuMTI3IDE0LjMzMzMgMTIuMDUgMTQuMzMzM0g1LjU1QzQuNDczMDQgMTQuMzMzMyAzLjYgMTMuNDM3OSAzLjYgMTIuMzMzM1YzQzMuNiAxLjg5NTQzIDQuNDczMDQgMSA1LjU1IDFIMTIuMDVaIiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJibGFjayIvPgo8L3N2Zz4K)
-            32 32,
-        pointer;
+    cursor: pointer;
 }
 
 .tr td .actions {
@@ -60,12 +58,14 @@
     border-radius: 999px;
     max-height: var(--first-icon-height);
     overflow-y: hidden;
-    transition: max-height 300ms ease-in-out, background-color 300ms ease-in-out;
+    transition: max-height 300ms ease-in-out, background-color 300ms ease-in-out,
+        box-shadow 300ms ease-in-out;
 }
 .actions .menu:hover,
 .actions .menu:focus {
     background-color: var(--cred-card-bg);
     max-height: 150px;
+    box-shadow: 3px 3px 25px var(--button-secondary);
 }
 
 .actions .menu button {

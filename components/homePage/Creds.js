@@ -33,8 +33,10 @@ const Creds = ({
 
     useEffect(() => {
         setFinalCreds(
-            tempCreds.filter((cred) =>
-                cred.identifier.toLowerCase().includes(query)
+            tempCreds.filter(
+                (cred) =>
+                    cred.identifier.toLowerCase().includes(query) ||
+                    cred.value.toLowerCase().includes(query)
             )
         );
     }, [tempCreds, query]);
