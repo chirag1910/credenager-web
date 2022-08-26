@@ -7,7 +7,7 @@
     transition: border-color 300ms ease-in-out;
 }
 .tr:hover td {
-    border-color: var(--status-text);
+    border-color: var(--divider);
 }
 
 .tr td input {

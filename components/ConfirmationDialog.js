@@ -69,7 +69,11 @@ const ConfirmationDialog = ({
                                 Cancel
                             </button>
 
-                            <button type="submit" onClick={handleSuccess}>
+                            <button
+                                type="submit"
+                                onClick={handleSuccess}
+                                disabled={!dismissable}
+                            >
                                 {buttonText}
                             </button>
                         </div>
