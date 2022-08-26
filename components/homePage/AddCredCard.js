@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import styles from "../../styles/homePage/credCard.module.css";
@@ -15,6 +15,9 @@ const CredCard = ({
 }) => {
     const router = useRouter();
 
+    const identifierInputRef = useRef(null);
+    const valueInputRef = useRef(null);
+
     const [identifier, setIdentifier] = useState("");
     const [value, setValue] = useState("");
 
@@ -27,16 +30,23 @@ const CredCard = ({
         return () => {
             window.removeEventListener("keydown", handleKeyPress);
         };
-    }, [identifier, value, encKey]);
+    }, [identifier, value, encKey, identifierInputRef, valueInputRef]);
 
     const handleKeyPress = (e) => {
         e = e || window.event;
-        if (e.code === "Escape") {
-            e.preventDefault();
-            onHide();
-        } else if (e.code === "Enter") {
-            e.preventDefault();
-            handleSubmit();
+        if (
+            identifierInputRef.current &&
+            valueInputRef.current &&
+            (document.activeElement === identifierInputRef.current ||
+                document.activeElement === valueInputRef.current)
+        ) {
+            if (e.code === "Escape") {
+                e.preventDefault();
+                onHide();
+            } else if (e.code === "Enter") {
+                e.preventDefault();
+                handleSubmit();
+            }
         }
     };
 
@@ -73,6 +83,7 @@ const CredCard = ({
                 <td className={styles.idInput}>
                     <input
                         className={styles.editing}
+                        ref={identifierInputRef}
                         type="text"
                         value={identifier}
                         placeholder="Identifier"
@@ -83,6 +94,7 @@ const CredCard = ({
                 <td className={styles.credInput}>
                     <input
                         className={styles.editing}
+                        ref={valueInputRef}
                         type={showCred ? "text" : "password"}
                         value={value}
                         placeholder="Credential"

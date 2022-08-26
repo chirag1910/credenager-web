@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import styles from "../../styles/homePage/credCard.module.css";
@@ -12,6 +12,9 @@ import {
 
 const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
     const router = useRouter();
+
+    const identifierInputRef = useRef(null);
+    const valueInputRef = useRef(null);
 
     const [identifier, setIdentifier] = useState("");
     const [value, setValue] = useState("");
@@ -33,17 +36,32 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyPress);
         };
-    }, [allowEditing, identifier, value, encKey, cred]);
+    }, [
+        allowEditing,
+        identifier,
+        value,
+        encKey,
+        cred,
+        identifierInputRef,
+        valueInputRef,
+    ]);
 
     const handleKeyPress = (e) => {
         e = e || window.event;
         if (allowEditing) {
-            if (e.code === "Escape") {
-                e.preventDefault();
-                handleEditCancel();
-            } else if (e.code === "Enter") {
-                e.preventDefault();
-                handleEdit();
+            if (
+                identifierInputRef.current &&
+                valueInputRef.current &&
+                (document.activeElement === identifierInputRef.current ||
+                    document.activeElement === valueInputRef.current)
+            ) {
+                if (e.code === "Escape") {
+                    e.preventDefault();
+                    handleEditCancel();
+                } else if (e.code === "Enter") {
+                    e.preventDefault();
+                    handleEdit();
+                }
             }
         }
     };
@@ -115,6 +133,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                         value={identifier}
                         placeholder="Identifier"
                         onChange={(e) => setIdentifier(e.target.value)}
+                        ref={identifierInputRef}
                         disabled={!allowEditing || loading}
                     />
                     {!allowEditing && (
@@ -132,6 +151,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                         value={value}
                         placeholder="Credential"
                         onChange={(e) => setValue(e.target.value)}
+                        ref={valueInputRef}
                         disabled={!allowEditing || loading}
                     />
                     {!allowEditing && (
