@@ -57,6 +57,9 @@ const Creds = ({
                                     <table>
                                         <thead>
                                             <tr>
+                                                <th
+                                                    className={styles.drag}
+                                                ></th>
                                                 <th>Identifier</th>
                                                 <th>Credential</th>
                                                 <th>Actions</th>
