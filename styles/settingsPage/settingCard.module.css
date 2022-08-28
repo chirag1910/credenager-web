@@ -19,6 +19,7 @@
     font-size: x-large;
     font-weight: 600;
     color: var(--heading-2);
+    overflow-wrap: anywhere;
 }
 
 .main .container .info p {

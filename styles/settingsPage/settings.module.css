@@ -80,13 +80,18 @@
     }
 }
 
+@media only screen and (max-width: 700px) {
+    .container {
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 400px) {
     .main {
         padding: 20px;
     }
 
     .container {
-        width: 100%;
         gap: 12px;
     }
 
