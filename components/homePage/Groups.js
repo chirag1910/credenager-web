@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { setShowGroupMenu as setShowGroupMenuAction } from "../../redux/action/misc";
+import { setDndCred as setDndCredAction } from "../../redux/action/misc";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
 
@@ -9,7 +10,9 @@ const Groups = ({
     dataLoaded,
     activeGroup,
     showGroupMenu,
+    dndCred,
     setShowGroupMenuAction,
+    setDndCredAction,
 }) => {
     const router = useRouter();
 
@@ -21,6 +24,11 @@ const Groups = ({
                 id,
             },
         });
+    };
+
+    const handleCredDrop = (groupId) => {
+        console.log(groupId, dndCred);
+        // api and redux integration
     };
 
     return (
@@ -86,6 +94,9 @@ const Groups = ({
                                     onClick={() => {
                                         handleGroups("group", group._id);
                                     }}
+                                    onCredDropped={() =>
+                                        handleCredDrop(group._id)
+                                    }
                                 />
                             ))}
                         </>
@@ -108,6 +119,7 @@ const mapStateToProps = (state) => {
         dataLoaded: state.data.loaded,
         activeGroup: state.misc.activeGroup,
         showGroupMenu: state.misc.showGroupMenu,
+        dndCred: state.misc.dndCred,
     };
 };
 
@@ -115,6 +127,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setShowGroupMenuAction: (show) =>
             dispatch(setShowGroupMenuAction(show)),
+        setDndCredAction: (credId) => dispatch(setDndCredAction(credId)),
     };
 };
 

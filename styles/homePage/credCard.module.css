@@ -4,6 +4,10 @@
     transform: translate(-15px, -50%);
 }
 
+.tr.loading {
+    animation: cardLoading 1s linear infinite forwards;
+}
+
 .tr td {
     padding: 8px 0;
     position: relative;
@@ -44,6 +48,7 @@
 .tr td.drag {
     cursor: grab;
     padding: 8px;
+    vertical-align: middle;
 }
 
 .tr td.drag svg {
@@ -109,6 +114,15 @@
     fill: var(--button-primary);
     width: 17px;
     height: 17px;
+}
+
+@keyframes cardLoading {
+    0% {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        background-color: var(--loading);
+    }
 }
 
 @media only screen and (max-width: 800px) {

@@ -9,8 +9,16 @@ import {
     updateCred as updateCredAction,
     deleteCred as deleteCredAction,
 } from "../../redux/action/data";
+import { setDndCred as setDndCredAction } from "../../redux/action/misc";
 
-const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
+const CredCard = ({
+    cred,
+    encKey,
+    dndCred,
+    updateCredAction,
+    deleteCredAction,
+    setDndCredAction,
+}) => {
     const router = useRouter();
 
     const tableRow = useRef(null);
@@ -29,6 +37,14 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
         setIdentifier(cred.identifier);
         setValue(cred.value);
     }, [cred]);
+
+    useEffect(() => {
+        if (dndCred == cred._id) {
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
+    }, [dndCred]);
 
     useEffect(() => {
         if (allowEditing) {
@@ -144,6 +160,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
     const handleMouseDown = (e) => {
         if (tableRow.current && !allowEditing && !loading) {
             setIsMousedown(true);
+            setDndCredAction(cred._id);
             tableRow.current.style.left = e.pageX + "px";
             tableRow.current.style.top = e.pageY + "px";
         }
@@ -168,6 +185,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
                 className={[
                     styles.tr,
                     isMousedown ? styles.mouseDown : undefined,
+                    loading ? styles.loading : undefined,
                 ].join(" ")}
                 ref={tableRow}
             >
@@ -329,6 +347,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
 const mapStateToProps = (state) => {
     return {
         encKey: state.auth.key,
+        dndCred: state.misc.dndCred,
     };
 };
 
@@ -337,6 +356,7 @@ const mapDispatchToProps = (dispatch) => {
         updateCredAction: (id, identifier, value) =>
             dispatch(updateCredAction(id, identifier, value)),
         deleteCredAction: (id) => dispatch(deleteCredAction(id)),
+        setDndCredAction: (credId) => dispatch(setDndCredAction(credId)),
     };
 };
 
