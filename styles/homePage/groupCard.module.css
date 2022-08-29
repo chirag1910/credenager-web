@@ -14,7 +14,8 @@
     color: #fff;
 }
 .main.hovered {
-    box-shadow: 3px 3px 25px var(--group-card-bg);
+    box-shadow: 3px 3px 25px var(--button-secondary);
+    background-color: var(--button-secondary);
 }
 
 .main.loading {

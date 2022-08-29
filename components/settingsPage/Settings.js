@@ -101,6 +101,7 @@ const Settings = ({
                         subheading={`Switch website's theme from ${theme} to ${
                             theme === "light" ? "dark" : "light"
                         }`}
+                        tooltip="Toggle theme"
                         icon={
                             theme === "dark" ? (
                                 <svg viewBox="0 0 76 76" fill="none">
@@ -171,6 +172,7 @@ const Settings = ({
                     <SettingCard
                         heading={user?.email}
                         subheading="Is your current email address"
+                        tooltip="Copy"
                         icon={
                             <svg viewBox="0 0 16 17" fill="none">
                                 <path d="M2.07162 2.9541L2.07118 12.0417C2.07118 13.9194 3.63726 15.4559 5.61713 15.5758L5.86668 15.5833L12.5686 15.5843C12.2557 16.4092 11.4124 17 10.4213 17H5.10758C2.59214 17 0.552979 15.0972 0.552979 12.75V4.95833C0.552979 4.03294 1.18689 3.2457 2.07162 2.9541ZM13.4577 0C14.7154 0 15.735 0.951395 15.735 2.125V12.0417C15.735 13.2153 14.7154 14.1667 13.4577 14.1667H5.86668C4.60896 14.1667 3.58938 13.2153 3.58938 12.0417V2.125C3.58938 0.951395 4.60896 0 5.86668 0H13.4577Z" />
@@ -183,6 +185,7 @@ const Settings = ({
                     <SettingCard
                         heading="Change password"
                         subheading="Change your account password"
+                        tooltip="Change"
                         icon={
                             <svg viewBox="0 0 83 74" fill="none">
                                 <path d="M46.1499 0C66.3565 0 82.7263 16.443 82.7263 36.5399C82.7263 56.6369 66.3565 73.0798 46.1499 73.0798C33.3244 73.0798 22.1066 66.4296 15.566 56.3811L21.3393 51.8136C26.4914 60.1812 35.6629 65.7718 46.1864 65.7718C53.9392 65.7718 61.3745 62.692 66.8565 57.21C72.3386 51.728 75.4184 44.2927 75.4184 36.5399C75.4184 28.7871 72.3386 21.3519 66.8565 15.8698C61.3745 10.3878 53.9392 7.30798 46.1864 7.30798C31.2782 7.30798 19.0008 18.4892 17.2103 32.8859H27.2953L13.6294 46.5153L0 32.8859H9.82924C11.6562 14.4333 27.2222 0 46.1499 0ZM56.9657 30.1089C58.7927 30.1454 60.2908 31.607 60.2908 33.4706V50.3155C60.2908 52.1424 58.7927 53.6771 56.9292 53.6771H36.7226C34.8591 53.6771 33.3609 52.1424 33.3609 50.3155V33.4706C33.3609 31.607 34.8591 30.1454 36.6861 30.1089V26.4184C36.6861 20.8277 41.2536 16.2968 46.8076 16.2968C52.3982 16.2968 56.9657 20.8277 56.9657 26.4184V30.1089ZM46.8076 21.4124C44.0671 21.4124 41.8017 23.6413 41.8017 26.4184V30.1089H51.8501V26.4184C51.8501 23.6413 49.5847 21.4124 46.8076 21.4124Z" />
@@ -196,6 +199,7 @@ const Settings = ({
                     <SettingCard
                         heading="Delete Account"
                         subheading="Delete your account permanently deleting all credentials"
+                        tooltip="Delete"
                         icon={
                             <svg viewBox="0 0 76 82" fill="none">
                                 <path
@@ -214,6 +218,7 @@ const Settings = ({
                     <SettingCard
                         heading="Logout"
                         subheading="Logout from this device"
+                        tooltip="Logout"
                         icon={
                             <svg viewBox="0 0 34 33" fill="none">
                                 <path
@@ -234,6 +239,7 @@ const Settings = ({
                     <SettingCard
                         heading="Github"
                         subheading="View project source code"
+                        tooltip="Go to GitHub"
                         icon={
                             <svg viewBox="0 0 74 73" fill="none">
                                 <path
@@ -262,6 +268,7 @@ const Settings = ({
                     <SettingCard
                         heading="Playstore"
                         subheading="Download credenager app for your android device"
+                        tooltip="Go to Playstore"
                         icon={
                             <svg viewBox="0 0 102 110" fill="none">
                                 <path d="M0 6.74103V103.102C0.000645567 103.311 0.0629998 103.515 0.179244 103.689C0.295488 103.863 0.460447 103.999 0.653436 104.079C0.846425 104.159 1.05885 104.181 1.26408 104.141C1.46931 104.101 1.65821 104.002 1.80708 103.855L51.9811 54.9241L1.80708 5.98828C1.65821 5.8415 1.46931 5.74194 1.26408 5.70209C1.05885 5.66223 0.846425 5.68386 0.653436 5.76425C0.460447 5.84464 0.295488 5.98022 0.179244 6.15398C0.0629998 6.32775 0.000645567 6.53197 0 6.74103Z" />

@@ -4,6 +4,7 @@ const SettingCard = ({
     heading,
     subheading,
     icon,
+    tooltip,
     onClick = () => {},
     loading = false,
     disabled = false,
@@ -28,6 +29,7 @@ const SettingCard = ({
                             className={styles.icon}
                             onClick={onClick}
                             disabled={disabled}
+                            title={tooltip}
                         >
                             {icon}
                         </button>

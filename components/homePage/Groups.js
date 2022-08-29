@@ -1,7 +1,10 @@
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { setShowGroupMenu as setShowGroupMenuAction } from "../../redux/action/misc";
+import {
+    setShowGroupMenu as setShowGroupMenuAction,
+    setDndCred as setDndCredAction,
+} from "../../redux/action/misc";
 import { updateCredGroup as updateCredGroupAction } from "../../redux/action/data";
 import nprogress from "nprogress";
 import { toast } from "react-toastify";
@@ -17,6 +20,7 @@ const Groups = ({
     dndCred,
     setShowGroupMenuAction,
     updateCredGroupAction,
+    setDndCredAction,
 }) => {
     const router = useRouter();
 
@@ -38,6 +42,7 @@ const Groups = ({
 
     const handleCredDrop = async (groupId) => {
         if (dndCred) {
+            setDndCredAction(null);
             const credId = dndCred;
 
             setLoading(true);
@@ -153,6 +158,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(setShowGroupMenuAction(show)),
         updateCredGroupAction: (groupId, id) =>
             dispatch(updateCredGroupAction(groupId, id)),
+        setDndCredAction: (credId) => dispatch(setDndCredAction(credId)),
     };
 };
 
