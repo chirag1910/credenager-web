@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { setShowGroupMenu as setShowGroupMenuAction } from "../../redux/action/misc";
+import { updateCredGroup as updateCredGroupAction } from "../../redux/action/data";
 import nprogress from "nprogress";
 import { toast } from "react-toastify";
 import Api from "../../utils/api";
@@ -15,6 +16,7 @@ const Groups = ({
     showGroupMenu,
     dndCred,
     setShowGroupMenuAction,
+    updateCredGroupAction,
 }) => {
     const router = useRouter();
 
@@ -44,7 +46,7 @@ const Groups = ({
 
             if (response.status === "ok") {
                 toast.success("Credential moved successfully");
-                // update ui
+                updateCredGroupAction(groupId, credId);
             } else {
                 toast.error(response.error);
             }
@@ -149,6 +151,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setShowGroupMenuAction: (show) =>
             dispatch(setShowGroupMenuAction(show)),
+        updateCredGroupAction: (groupId, id) =>
+            dispatch(updateCredGroupAction(groupId, id)),
     };
 };
 
