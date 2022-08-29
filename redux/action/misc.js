@@ -31,3 +31,10 @@ export const setTheme = (theme) => {
         payload: theme,
     };
 };
+
+export const setDndCred = (credId) => {
+    return {
+        type: types.SET_DND_CRED,
+        payload: credId,
+    };
+};

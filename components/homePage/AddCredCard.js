@@ -80,6 +80,7 @@ const CredCard = ({
     return (
         <>
             <tr className={styles.tr}>
+                <td className={styles.drag}></td>
                 <td className={styles.idInput}>
                     <input
                         className={styles.editing}

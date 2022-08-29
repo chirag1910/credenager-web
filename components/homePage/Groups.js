@@ -1,6 +1,11 @@
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import { setShowGroupMenu as setShowGroupMenuAction } from "../../redux/action/misc";
+import { updateCredGroup as updateCredGroupAction } from "../../redux/action/data";
+import nprogress from "nprogress";
+import { toast } from "react-toastify";
+import Api from "../../utils/api";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
 
@@ -9,9 +14,17 @@ const Groups = ({
     dataLoaded,
     activeGroup,
     showGroupMenu,
+    dndCred,
     setShowGroupMenuAction,
+    updateCredGroupAction,
 }) => {
     const router = useRouter();
+
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.done();
+    }, [loading]);
 
     const handleGroups = (type, id) => {
         router.replace({
@@ -21,6 +34,25 @@ const Groups = ({
                 id,
             },
         });
+    };
+
+    const handleCredDrop = async (groupId) => {
+        if (dndCred) {
+            const credId = dndCred;
+
+            setLoading(true);
+
+            const response = await new Api().updateCredGroup(groupId, credId);
+
+            if (response.status === "ok") {
+                toast.success("Credential moved successfully");
+                updateCredGroupAction(groupId, credId);
+            } else {
+                toast.error(response.error);
+            }
+
+            setLoading(false);
+        }
     };
 
     return (
@@ -86,6 +118,9 @@ const Groups = ({
                                     onClick={() => {
                                         handleGroups("group", group._id);
                                     }}
+                                    onCredDropped={() =>
+                                        handleCredDrop(group._id)
+                                    }
                                 />
                             ))}
                         </>
@@ -108,6 +143,7 @@ const mapStateToProps = (state) => {
         dataLoaded: state.data.loaded,
         activeGroup: state.misc.activeGroup,
         showGroupMenu: state.misc.showGroupMenu,
+        dndCred: state.misc.dndCred,
     };
 };
 
@@ -115,6 +151,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setShowGroupMenuAction: (show) =>
             dispatch(setShowGroupMenuAction(show)),
+        updateCredGroupAction: (groupId, id) =>
+            dispatch(updateCredGroupAction(groupId, id)),
     };
 };
 

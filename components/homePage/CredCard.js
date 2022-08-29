@@ -9,10 +9,18 @@ import {
     updateCred as updateCredAction,
     deleteCred as deleteCredAction,
 } from "../../redux/action/data";
+import { setDndCred as setDndCredAction } from "../../redux/action/misc";
 
-const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
+const CredCard = ({
+    cred,
+    encKey,
+    updateCredAction,
+    deleteCredAction,
+    setDndCredAction,
+}) => {
     const router = useRouter();
 
+    const tableRow = useRef(null);
     const identifierInputRef = useRef(null);
     const valueInputRef = useRef(null);
 
@@ -22,6 +30,7 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
     const [allowEditing, setAllowEditing] = useState(false);
     const [copied, setCopied] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [isMousedown, setIsMousedown] = useState(false);
 
     useEffect(() => {
         setIdentifier(cred.identifier);
@@ -45,6 +54,22 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
         identifierInputRef,
         valueInputRef,
     ]);
+
+    useEffect(() => {
+        document.addEventListener("mousemove", handleMouseMove);
+
+        return () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+        };
+    }, [tableRow, isMousedown]);
+
+    useEffect(() => {
+        document.addEventListener("mouseup", handleMouseUp);
+
+        return () => {
+            document.removeEventListener("mouseup", handleMouseUp);
+        };
+    }, [isMousedown]);
 
     const handleKeyPress = (e) => {
         e = e || window.event;
@@ -123,9 +148,48 @@ const CredCard = ({ cred, encKey, updateCredAction, deleteCredAction }) => {
         setLoading(false);
     };
 
+    const handleMouseDown = (e) => {
+        if (tableRow.current && !allowEditing && !loading) {
+            setIsMousedown(true);
+            setDndCredAction(cred._id);
+            tableRow.current.style.left = e.pageX + "px";
+            tableRow.current.style.top = e.pageY + "px";
+        }
+    };
+
+    const handleMouseUp = (e) => {
+        if (isMousedown) {
+            setIsMousedown(false);
+            setDndCredAction(null);
+        }
+    };
+
+    const handleMouseMove = (e) => {
+        if (isMousedown && tableRow.current) {
+            tableRow.current.style.left = e.pageX + "px";
+            tableRow.current.style.top = e.pageY + "px";
+        }
+    };
+
     return (
         <>
-            <tr className={styles.tr}>
+            <tr
+                className={[
+                    styles.tr,
+                    isMousedown ? styles.mouseDown : undefined,
+                    loading ? styles.loading : undefined,
+                ].join(" ")}
+                ref={tableRow}
+            >
+                <td className={styles.drag} onMouseDown={handleMouseDown}>
+                    <svg viewBox="0 0 43 71" fill="none">
+                        <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M35.1995 70.399C37.0666 70.399 38.8572 69.6573 40.1774 68.337C41.4977 67.0168 42.2394 65.2262 42.2394 63.3591C42.2394 61.492 41.4977 59.7013 40.1774 58.3811C38.8572 57.0609 37.0666 56.3192 35.1995 56.3192C33.3324 56.3192 31.5418 57.0609 30.2215 58.3811C28.9013 59.7013 28.1596 61.492 28.1596 63.3591C28.1596 65.2262 28.9013 67.0168 30.2215 68.337C31.5418 69.6573 33.3324 70.399 35.1995 70.399V70.399ZM7.0399 70.399C8.90699 70.399 10.6976 69.6573 12.0179 68.337C13.3381 67.0168 14.0798 65.2262 14.0798 63.3591C14.0798 61.492 13.3381 59.7013 12.0179 58.3811C10.6976 57.0609 8.90699 56.3192 7.0399 56.3192C5.1728 56.3192 3.38218 57.0609 2.06194 58.3811C0.741703 59.7013 0 61.492 0 63.3591C0 65.2262 0.741703 67.0168 2.06194 68.337C3.38218 69.6573 5.1728 70.399 7.0399 70.399ZM14.0798 35.1995C14.0798 37.0666 13.3381 38.8572 12.0179 40.1774C10.6976 41.4977 8.90699 42.2394 7.0399 42.2394C5.1728 42.2394 3.38218 41.4977 2.06194 40.1774C0.741703 38.8572 0 37.0666 0 35.1995C0 33.3324 0.741703 31.5418 2.06194 30.2215C3.38218 28.9013 5.1728 28.1596 7.0399 28.1596C8.90699 28.1596 10.6976 28.9013 12.0179 30.2215C13.3381 31.5418 14.0798 33.3324 14.0798 35.1995V35.1995ZM35.1995 42.2394C37.0666 42.2394 38.8572 41.4977 40.1774 40.1774C41.4977 38.8572 42.2394 37.0666 42.2394 35.1995C42.2394 33.3324 41.4977 31.5418 40.1774 30.2215C38.8572 28.9013 37.0666 28.1596 35.1995 28.1596C33.3324 28.1596 31.5418 28.9013 30.2215 30.2215C28.9013 31.5418 28.1596 33.3324 28.1596 35.1995C28.1596 37.0666 28.9013 38.8572 30.2215 40.1774C31.5418 41.4977 33.3324 42.2394 35.1995 42.2394V42.2394ZM42.2394 7.0399C42.2394 8.90699 41.4977 10.6976 40.1774 12.0179C38.8572 13.3381 37.0666 14.0798 35.1995 14.0798C33.3324 14.0798 31.5418 13.3381 30.2215 12.0179C28.9013 10.6976 28.1596 8.90699 28.1596 7.0399C28.1596 5.1728 28.9013 3.38217 30.2215 2.06194C31.5418 0.741701 33.3324 0 35.1995 0C37.0666 0 38.8572 0.741701 40.1774 2.06194C41.4977 3.38217 42.2394 5.1728 42.2394 7.0399V7.0399ZM7.0399 14.0798C8.90699 14.0798 10.6976 13.3381 12.0179 12.0179C13.3381 10.6976 14.0798 8.90699 14.0798 7.0399C14.0798 5.1728 13.3381 3.38217 12.0179 2.06194C10.6976 0.741701 8.90699 0 7.0399 0C5.1728 0 3.38218 0.741701 2.06194 2.06194C0.741703 3.38217 0 5.1728 0 7.0399C0 8.90699 0.741703 10.6976 2.06194 12.0179C3.38218 13.3381 5.1728 14.0798 7.0399 14.0798Z"
+                        />
+                    </svg>
+                </td>
                 <td className={styles.idInput}>
                     <input
                         className={allowEditing ? styles.editing : undefined}
@@ -283,6 +347,7 @@ const mapDispatchToProps = (dispatch) => {
         updateCredAction: (id, identifier, value) =>
             dispatch(updateCredAction(id, identifier, value)),
         deleteCredAction: (id) => dispatch(deleteCredAction(id)),
+        setDndCredAction: (credId) => dispatch(setDndCredAction(credId)),
     };
 };
 

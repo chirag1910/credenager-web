@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     showGroupMenu: false,
     showAddCred: false,
     theme: "light",
+    dndCred: null,
 };
 
 const misc = (state = INITIAL_STATE, action) => {
@@ -27,6 +28,11 @@ const misc = (state = INITIAL_STATE, action) => {
         return {
             ...state,
             theme: action.payload,
+        };
+    } else if (action.type === types.SET_DND_CRED) {
+        return {
+            ...state,
+            dndCred: action.payload,
         };
     } else {
         return state;

@@ -78,7 +78,7 @@ export const updateCred = (id, identifier, value) => {
     };
 };
 
-export const updateCredGroup = (id, groupId) => {
+export const updateCredGroup = (groupId, id) => {
     return {
         type: types.UPDATE_CRED_GROUP,
         payload: {

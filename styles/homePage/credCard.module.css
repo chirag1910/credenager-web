@@ -1,13 +1,36 @@
+.tr.mouseDown {
+    z-index: 100;
+    position: fixed;
+    transform: translate(-15px, -50%);
+}
+
+.tr.loading {
+    animation: cardLoading 1s linear infinite forwards;
+}
+
 .tr td {
     padding: 8px 0;
     position: relative;
+    user-select: none;
 }
-.tr:not(:last-child) td {
+.tr:not(:last-child):not(.mouseDown) td {
     border-bottom: 1px solid var(--group-card-bg);
     transition: border-color 300ms ease-in-out;
 }
 .tr:hover td {
     border-color: var(--divider);
+}
+
+.tr.mouseDown td {
+    background-color: var(--cred-card-bg);
+}
+.tr.mouseDown td:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.tr.mouseDown td:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .tr td input {
@@ -20,6 +43,18 @@
 }
 .tr td input.editing {
     background-color: var(--cred-card-bg);
+}
+
+.tr td.drag {
+    cursor: grab;
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.tr td.drag svg {
+    width: 15px;
+    height: 15px;
+    fill: var(--heading-2);
 }
 
 .tr td.idInput input {
@@ -81,6 +116,15 @@
     height: 17px;
 }
 
+@keyframes cardLoading {
+    0% {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        background-color: var(--loading);
+    }
+}
+
 @media only screen and (max-width: 800px) {
     .tr td {
         padding: 5px 0;
@@ -102,6 +146,12 @@
         fill: var(--button-primary);
         width: 15px;
         height: 15px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .tr td.drag {
+        display: none;
     }
 }
 
