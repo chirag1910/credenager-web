@@ -1,7 +1,10 @@
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import { setShowGroupMenu as setShowGroupMenuAction } from "../../redux/action/misc";
-import { setDndCred as setDndCredAction } from "../../redux/action/misc";
+import nprogress from "nprogress";
+import { toast } from "react-toastify";
+import Api from "../../utils/api";
 import styles from "../../styles/homePage/groups.module.css";
 import GroupCard from "./GroupCard";
 
@@ -12,9 +15,14 @@ const Groups = ({
     showGroupMenu,
     dndCred,
     setShowGroupMenuAction,
-    setDndCredAction,
 }) => {
     const router = useRouter();
+
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.done();
+    }, [loading]);
 
     const handleGroups = (type, id) => {
         router.replace({
@@ -26,9 +34,23 @@ const Groups = ({
         });
     };
 
-    const handleCredDrop = (groupId) => {
-        console.log(groupId, dndCred);
-        // api and redux integration
+    const handleCredDrop = async (groupId) => {
+        if (dndCred) {
+            const credId = dndCred;
+
+            setLoading(true);
+
+            const response = await new Api().updateCredGroup(groupId, credId);
+
+            if (response.status === "ok") {
+                toast.success("Credential moved successfully");
+                // update ui
+            } else {
+                toast.error(response.error);
+            }
+
+            setLoading(false);
+        }
     };
 
     return (
@@ -127,7 +149,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setShowGroupMenuAction: (show) =>
             dispatch(setShowGroupMenuAction(show)),
-        setDndCredAction: (credId) => dispatch(setDndCredAction(credId)),
     };
 };
 

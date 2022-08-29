@@ -4,7 +4,7 @@
     color: var(--heading-2);
     border-radius: 999px;
     background-color: var(--group-card-bg);
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, box-shadow 300ms ease-in-out;
 }
 .main:hover {
     background-color: var(--button-secondary);
@@ -12,6 +12,9 @@
 .main.selected {
     background-color: var(--button-primary);
     color: #fff;
+}
+.main.hovered {
+    box-shadow: 3px 3px 25px var(--group-card-bg);
 }
 
 .main.loading {

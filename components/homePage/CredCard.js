@@ -14,7 +14,6 @@ import { setDndCred as setDndCredAction } from "../../redux/action/misc";
 const CredCard = ({
     cred,
     encKey,
-    dndCred,
     updateCredAction,
     deleteCredAction,
     setDndCredAction,
@@ -37,14 +36,6 @@ const CredCard = ({
         setIdentifier(cred.identifier);
         setValue(cred.value);
     }, [cred]);
-
-    useEffect(() => {
-        if (dndCred == cred._id) {
-            setLoading(true);
-        } else {
-            setLoading(false);
-        }
-    }, [dndCred]);
 
     useEffect(() => {
         if (allowEditing) {
@@ -169,6 +160,7 @@ const CredCard = ({
     const handleMouseUp = (e) => {
         if (isMousedown) {
             setIsMousedown(false);
+            setDndCredAction(null);
         }
     };
 
@@ -347,7 +339,6 @@ const CredCard = ({
 const mapStateToProps = (state) => {
     return {
         encKey: state.auth.key,
-        dndCred: state.misc.dndCred,
     };
 };
 

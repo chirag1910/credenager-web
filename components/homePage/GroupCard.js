@@ -60,6 +60,7 @@ const GroupCard = ({
                 className={[
                     styles.main,
                     selected ? styles.selected : undefined,
+                    isHovered ? styles.hovered : undefined,
                 ].join(" ")}
                 onClick={onClick}
                 ref={cardRef}
