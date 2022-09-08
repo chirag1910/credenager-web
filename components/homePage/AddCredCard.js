@@ -79,7 +79,12 @@ const CredCard = ({
 
     return (
         <>
-            <tr className={styles.tr}>
+            <tr
+                className={[
+                    styles.tr,
+                    loading ? styles.loading : undefined,
+                ].join(" ")}
+            >
                 <td className={styles.drag}></td>
                 <td className={styles.idInput}>
                     <input
