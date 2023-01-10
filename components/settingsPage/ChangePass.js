@@ -111,7 +111,7 @@ const ChangePass = ({ close = () => {} }) => {
                                         onChange={(e) =>
                                             setoldPass(e.target.value)
                                         }
-                                        autoFocus="true"
+                                        autoFocus={true}
                                     />
 
                                     <button

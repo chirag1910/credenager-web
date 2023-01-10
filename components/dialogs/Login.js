@@ -113,7 +113,7 @@ const Login = ({ user, loginAction }) => {
                                 placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                autoFocus="true"
+                                autoFocus={true}
                             />
                         </div>
                     </div>

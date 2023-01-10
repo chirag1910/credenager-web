@@ -98,7 +98,7 @@ const VerifyKey = ({ user, userLoaded, encKey, setKeyAction }) => {
                                 placeholder="Encryption Key"
                                 value={key}
                                 onChange={(e) => setKey(e.target.value)}
-                                autoFocus="true"
+                                autoFocus={true}
                             />
                             <button
                                 type="button"

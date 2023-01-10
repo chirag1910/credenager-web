@@ -146,7 +146,7 @@ const ResetPass = ({ user }) => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 disabled={otpSent || loading}
-                                autoFocus="true"
+                                autoFocus={true}
                             />
                             {otpSent && !loading && (
                                 <button
