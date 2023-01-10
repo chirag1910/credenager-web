@@ -9,7 +9,7 @@ const LandingPage = ({ user, userLoaded }) => {
 
     useEffect(() => {
         if (userLoaded && user) {
-            router.replace({ href: "/home" });
+            router.replace("/home");
         }
     }, [user, userLoaded]);
 
